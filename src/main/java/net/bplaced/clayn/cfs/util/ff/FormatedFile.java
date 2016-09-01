@@ -1,0 +1,37 @@
+package net.bplaced.clayn.cfs.util.ff;
+
+import net.bplaced.clayn.cfs.SimpleFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Basic class for all classes that may be formated from a {@link SimpleFile}.
+ * Implementing classes can use the constructor for formating (see
+ * {@link SimpleFile#as(java.util.function.Function)}). Additional this class
+ * provides an {@link Logger logger} by using the {@code slf4j} framework.
+ *
+ * @author Clayn
+ * @since 0.2
+ * @version $Revision: 318 $
+ */
+public abstract class FormatedFile
+{
+
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
+
+    /**
+     * Creating a new instance of an formated file from the given
+     * {@link SimpleFile file}.
+     *
+     * @param file the file to format.
+     * @since 0.2
+     */
+    public FormatedFile(SimpleFile file)
+    {
+        if (logger.isWarnEnabled())
+        {
+            logger.warn(
+                    "Constructor of " + this.getClass() + " called. Consider to remove these calls");
+        }
+    }
+}
