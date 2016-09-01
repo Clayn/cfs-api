@@ -103,18 +103,6 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.7.16</version>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>clayn-cfs-local</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>clayn-cfs-sql</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
     <description>The Clayn File System provides an abstract API for creating a small file system with all basic operations for your application. 
         This allows you to switch implementations so they fit your needs, withour rewriting you logic that is build on this API.

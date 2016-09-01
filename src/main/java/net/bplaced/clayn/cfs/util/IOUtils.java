@@ -1,6 +1,5 @@
 package net.bplaced.clayn.cfs.util;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -147,14 +146,6 @@ public final class IOUtils
      */
     public static byte[] readAllBytes(SimpleFile file) throws IOException
     {
-        byte[] buffer;
-        try (ByteArrayOutputStream bout = new ByteArrayOutputStream();
-                InputStream in = file.openRead())
-        {
-            copy(in, bout);
-            bout.flush();
-            buffer = bout.toByteArray();
-        }
-        return buffer;
+        return CFiles.readAllBytes(file);
     }
 }
