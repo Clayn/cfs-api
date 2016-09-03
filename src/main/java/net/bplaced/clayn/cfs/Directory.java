@@ -146,4 +146,40 @@ public interface Directory extends Child<Directory>, Deletable
      * @since 0.2
      */
     public String getName();
+
+    /**
+     * Returns wether or not this directory is the root directory or not. 
+     * @return {@code true} if and only if {@code getParent() == null} is {@code true}, 
+     * {@code false} otherwise.
+     * @since 0.2
+     */
+    public default boolean isRoot()
+    {
+       return getParent()==null;
+    }
+    
+    /**
+     * Checks if the given directories are the same or not. The directories are 
+     * the same when they have the same parent and their name is equals (case 
+     * sensitive).
+     * @param dir1 the first directory to check
+     * @param dir2 the second directory to check
+     * @return {@code ture} if and only if the directories have the same parent 
+     * and the same name, {@code false} otherwise.
+     * @since 0.2
+     */
+    public static boolean equals(Directory dir1, Directory dir2)
+    {
+        if(dir1==dir2)
+            return true;
+        if(dir1==null)
+            return false;
+        if(dir1.isRoot()&&dir2.isRoot())
+            return true;
+        if(Directory.equals(dir1.getParent(), dir2.getParent()))
+        {
+            return dir1.getName().equals(dir2.getName());
+        }
+        return false;
+    }
 }

@@ -149,7 +149,7 @@ public interface SimpleFile extends Child<Directory>, Formatable<SimpleFile>,Del
      * Returns the size of this file in bytes.
      *
      * @return the size of the file in bytes
-     * @throws IOException
+     * @throws IOException if the file does not exists or an other I/O Exception occures
      * @since 0.1
      */
     public long getSize() throws IOException;
@@ -226,5 +226,27 @@ public interface SimpleFile extends Child<Directory>, Formatable<SimpleFile>,Del
             IOUtils.copy(in, out);
         }
         return out;
+    }
+    
+    /**
+     * Checks wether or not the given files are the same or not. A file is equal 
+     * when they have the same parent and an equal name (case sensitive).
+     * @param file1 the first file to check
+     * @param file2 the second file to check
+     * @return {@code true} if and only if the given files have the same name and 
+     * parents, {@code false} otherwise.
+     * @since 0.2
+     */
+    public static boolean equals(SimpleFile file1, SimpleFile file2)
+    {
+        if(file1==file2)
+            return true;
+        if(file1==null)
+            return false;
+        if(Directory.equals(file1.getParent(), file2.getParent()))
+        {
+            return file1.getName().equals(file2.getName());
+        }
+        return false;
     }
 }
