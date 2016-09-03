@@ -151,6 +151,7 @@ public interface Directory extends Child<Directory>, Deletable
      * Returns wether or not this directory is the root directory or not. 
      * @return {@code true} if and only if {@code getParent() == null} is {@code true}, 
      * {@code false} otherwise.
+     * @since 0.2
      */
     public default boolean isRoot()
     {
@@ -165,6 +166,7 @@ public interface Directory extends Child<Directory>, Deletable
      * @param dir2 the second directory to check
      * @return {@code ture} if and only if the directories have the same parent 
      * and the same name, {@code false} otherwise.
+     * @since 0.2
      */
     public static boolean equals(Directory dir1, Directory dir2)
     {

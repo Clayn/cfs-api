@@ -235,6 +235,7 @@ public interface SimpleFile extends Child<Directory>, Formatable<SimpleFile>,Del
      * @param file2 the second file to check
      * @return {@code true} if and only if the given files have the same name and 
      * parents, {@code false} otherwise.
+     * @since 0.2
      */
     public static boolean equals(SimpleFile file1, SimpleFile file2)
     {

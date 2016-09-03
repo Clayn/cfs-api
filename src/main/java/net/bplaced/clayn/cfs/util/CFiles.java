@@ -8,6 +8,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Stream;
+import net.bplaced.clayn.cfs.Directory;
 import net.bplaced.clayn.cfs.SimpleFile;
 
 /**
@@ -45,6 +48,37 @@ public final class CFiles
         return lines;
     }
 
+    /**
+     * Calculates the size of the directory by calculating the size of it's files and 
+     * subdirectories.
+     * @param dir the directory which size will be calculated
+     * @return the size of the directory
+     * @throws RuntimeException if an exception occures while listing the files 
+     * and directories.
+     * @since 0.2
+     */
+    public static long getSize(Directory dir)
+    {
+        Function<SimpleFile,Long> getSize=(SimpleFile t) ->
+        {
+            try
+            {
+                return t.getSize();
+            } catch (IOException ex)
+            {
+                return 0l;
+            }
+        };
+        try
+        {
+            return Stream.concat(dir.listDirectories().stream().map(CFiles::getSize),dir.listFiles().stream().map(getSize))
+                    .mapToLong(Long::longValue).sum();
+        } catch (IOException ex)
+        {
+            throw new RuntimeException(ex);
+        }
+    }
+    
     /**
      * Creates a new {@link BufferedReader} that reads from the given file. The 
      * reader uses the files charset.
