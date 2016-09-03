@@ -227,4 +227,25 @@ public interface SimpleFile extends Child<Directory>, Formatable<SimpleFile>,Del
         }
         return out;
     }
+    
+    /**
+     * Checks wether or not the given files are the same or not. A file is equal 
+     * when they have the same parent and an equal name (case sensitive).
+     * @param file1 the first file to check
+     * @param file2 the second file to check
+     * @return {@code true} if and only if the given files have the same name and 
+     * parents, {@code false} otherwise.
+     */
+    public static boolean equals(SimpleFile file1, SimpleFile file2)
+    {
+        if(file1==file2)
+            return true;
+        if(file1==null)
+            return false;
+        if(Directory.equals(file1.getParent(), file2.getParent()))
+        {
+            return file1.getName().equals(file2.getName());
+        }
+        return false;
+    }
 }
