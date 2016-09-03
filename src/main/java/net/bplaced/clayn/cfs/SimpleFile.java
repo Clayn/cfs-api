@@ -149,7 +149,7 @@ public interface SimpleFile extends Child<Directory>, Formatable<SimpleFile>,Del
      * Returns the size of this file in bytes.
      *
      * @return the size of the file in bytes
-     * @throws IOException
+     * @throws IOException if the file does not exists or an other I/O Exception occures
      * @since 0.1
      */
     public long getSize() throws IOException;
