@@ -59,6 +59,8 @@ public final class CFiles
      */
     public static long getSize(Directory dir)
     {
+        if(!dir.exists())
+            return 0;
         Function<SimpleFile,Long> getSize=(SimpleFile t) ->
         {
             try

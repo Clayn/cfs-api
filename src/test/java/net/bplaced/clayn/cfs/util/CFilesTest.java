@@ -7,9 +7,12 @@ package net.bplaced.clayn.cfs.util;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import net.bplaced.clayn.cfs.Directory;
 import net.bplaced.clayn.cfs.SimpleFile;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -121,6 +124,35 @@ public class CFilesTest
         assertNotNull(result);
         assertNotEquals(empty, result);
         Assert.assertArrayEquals(expResult, result);
+    }
+    
+    @Test
+    public void testGetSize() throws IOException
+    {
+        Directory dir=mock(Directory.class);
+        Directory sub=mock(Directory.class);
+        SimpleFile file=mock(SimpleFile.class);
+        SimpleFile file2=mock(SimpleFile.class);
+        SimpleFile file3=mock(SimpleFile.class);
+        
+        when(dir.exists()).thenReturn(false, true);
+        when(sub.exists()).thenReturn(true);
+        when(dir.listDirectories()).thenReturn(Arrays.asList(sub));
+        when(dir.listFiles()).thenReturn(Arrays.asList(file));
+        when(sub.listDirectories()).thenReturn(Collections.EMPTY_LIST);
+        when(sub.listFiles()).thenReturn(Arrays.asList(file2,file3));
+        
+        when(file.exists()).thenReturn(true);
+        when(file.getSize()).thenReturn(1l);
+        
+        when(file2.exists()).thenReturn(true);
+        when(file2.getSize()).thenReturn(1l);
+        
+        when(file3.exists()).thenReturn(true);
+        when(file3.getSize()).thenReturn(1l);
+        
+        assertEquals(0, CFiles.getSize(dir));
+        assertEquals(3, CFiles.getSize(dir));
     }
     
 }
