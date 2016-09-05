@@ -49,45 +49,52 @@ public final class CFiles
     }
 
     /**
-     * Calculates the size of the directory by calculating the size of it's files and 
-     * subdirectories.
+     * Calculates the size of the directory by calculating the size of it's
+     * files and subdirectories.
+     *
      * @param dir the directory which size will be calculated
      * @return the size of the directory
-     * @throws RuntimeException if an exception occures while listing the files 
+     * @throws RuntimeException if an exception occures while listing the files
      * and directories.
      * @since 0.2
      */
     public static long getSize(Directory dir)
     {
-        if(!dir.exists())
-            return 0;
-        Function<SimpleFile,Long> getSize=(SimpleFile t) ->
+        if (!dir.exists())
         {
-            try
-            {
-                return t.getSize();
-            } catch (IOException ex)
-            {
-                return 0l;
-            }
+            return 0;
+        }
+        Function<SimpleFile, Long> getSize = (SimpleFile t)
+                -> 
+                {
+                    try
+                    {
+                        return t.getSize();
+                    } catch (IOException ex)
+                    {
+                        return 0l;
+                    }
         };
         try
         {
-            return Stream.concat(dir.listDirectories().stream().map(CFiles::getSize),dir.listFiles().stream().map(getSize))
+            return Stream.concat(dir.listDirectories().stream().map(
+                    CFiles::getSize), dir.listFiles().stream().map(getSize))
                     .mapToLong(Long::longValue).sum();
         } catch (IOException ex)
         {
             throw new RuntimeException(ex);
         }
     }
-    
+
     /**
-     * Creates a new {@link BufferedReader} that reads from the given file. The 
+     * Creates a new {@link BufferedReader} that reads from the given file. The
      * reader uses the files charset.
+     *
      * @param sf the file to read from
      * @return a new reader to read from the file
-     * @throws IOException if an I/O Exception occures during the creation of the reader.
-     * @see java.nio.file.Files#newBufferedReader(java.nio.file.Path) 
+     * @throws IOException if an I/O Exception occures during the creation of
+     * the reader.
+     * @see java.nio.file.Files#newBufferedReader(java.nio.file.Path)
      */
     public static BufferedReader newBufferedReader(SimpleFile sf) throws IOException
     {
@@ -105,9 +112,9 @@ public final class CFiles
      * @param sf the file to read from
      * @return the bytes from the file
      * @throws IOException if an I/O Exception occures
-     * @throws OutOfMemoryError if the files size is {@code >2Gb} and can't be read 
-     * into an array.
-     * @see java.nio.file.Files#readAllBytes(java.nio.file.Path) 
+     * @throws OutOfMemoryError if the files size is {@code >2Gb} and can't be
+     * read into an array.
+     * @see java.nio.file.Files#readAllBytes(java.nio.file.Path)
      */
     public static byte[] readAllBytes(SimpleFile sf) throws IOException, OutOfMemoryError
     {

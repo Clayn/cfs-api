@@ -15,6 +15,7 @@ import java.util.function.Supplier;
  */
 public interface TryingSupplier<T> extends Supplier<T>
 {
+
     public T tryGet() throws Exception;
 
     @Override
@@ -28,6 +29,5 @@ public interface TryingSupplier<T> extends Supplier<T>
             throw new RuntimeException(ex);
         }
     }
-    
-    
+
 }

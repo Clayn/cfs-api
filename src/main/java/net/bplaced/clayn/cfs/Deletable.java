@@ -5,8 +5,8 @@ import java.io.IOException;
 /**
  * An Interface for all classes that may claim some deletable resources. Classes
  * that implement this interface have to ensure, that after deletion the
- * resources are no longer valid or existing. In other words operations 
- * that require the resources to exist, must fail after they were deleted.
+ * resources are no longer valid or existing. In other words operations that
+ * require the resources to exist, must fail after they were deleted.
  *
  * @author Clayn
  * @since 0.2
