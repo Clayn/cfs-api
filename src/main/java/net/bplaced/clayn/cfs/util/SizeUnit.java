@@ -375,41 +375,26 @@ public enum SizeUnit
 
     private final String shortString;
 
-    public double toByte(double val)
-    {
-        return this.convert(val, BYTE);
-    }
+    public abstract double toByte(double val);
+    
+    public abstract double toKiloByte(double val);
 
-    public double toKiloByte(double val)
-    {
-        throw new AbstractMethodError();
-    }
+    public abstract double toMegaByte(double val);
 
-    public double toMegaByte(double val)
-    {
-        throw new AbstractMethodError();
-    }
+    public abstract double toGigaByte(double val);
 
-    public double toGigaByte(double val)
-    {
-        throw new AbstractMethodError();
-    }
+    public abstract double toTerraByte(double val);
 
-    public double toTerraByte(double val)
-    {
-        throw new AbstractMethodError();
-    }
+    public abstract double toPetaByte(double val);
 
-    public double toPetaByte(double val)
-    {
-        throw new AbstractMethodError();
-    }
+    public abstract double toExaByte(double val);
 
-    public double toExaByte(double val)
-    {
-        throw new AbstractMethodError();
-    }
-
+    /**
+     * Converts the given value from the given {@link SizeUnit unit} to this one. 
+     * @param val the value to convert
+     * @param from the unit the value gets converted from
+     * @return the value converted to this unit
+     */
     public double convert(double val, SizeUnit from)
     {
         throw new AbstractMethodError();
@@ -421,6 +406,14 @@ public enum SizeUnit
         return shortString;
     }
 
+    /**
+     * Returns a representation of the given value for this unit. This method 
+     * returns a string that contains the given value followed by the string 
+     * representation of this unit.
+     * @param val the value to convert
+     * @return a string that contains the value together with the string representation 
+     * of this unit
+     */
     public String toString(double val)
     {
         return String.valueOf(val) + ' ' + toString();
