@@ -46,27 +46,30 @@ public final class StreamUtils
         }
         return list.stream();
     }
-    
-    public static <T> Stream<T> generateWhile(TryingSupplier<T> first, TryingUnaryOperator<T> next, 
+
+    public static <T> Stream<T> generateWhile(TryingSupplier<T> first,
+            TryingUnaryOperator<T> next,
             TryingPredicate<T> until)
     {
-        Stream.Builder<T> builder=Stream.builder();
-        T val=first.get();
-        while(until.test(val))
+        Stream.Builder<T> builder = Stream.builder();
+        T val = first.get();
+        while (until.test(val))
         {
             builder.accept(val);
-            val=next.apply(val);
+            val = next.apply(val);
         }
         return builder.build();
     }
-    
-    public static <T> Stream<T> generateWhile(TryingSupplier<T> first, TryingSupplier<T> next, 
+
+    public static <T> Stream<T> generateWhile(TryingSupplier<T> first,
+            TryingSupplier<T> next,
             TryingPredicate<T> until)
     {
-        return generateWhile(first, (t)->next.get(), until);
+        return generateWhile(first, (t) -> next.get(), until);
     }
-    
-    public static <T> Stream<T> generateWhile(TryingSupplier<T> gen,TryingPredicate<T> until)
+
+    public static <T> Stream<T> generateWhile(TryingSupplier<T> gen,
+            TryingPredicate<T> until)
     {
         return generateWhile(gen, gen, until);
     }

@@ -135,7 +135,7 @@ public class CFileSystemView implements Supplier<Node>
      *
      * @param fileGraphicsFactory the function that creates the
      * {@link TreeItem#setGraphic(javafx.scene.Node) icon} for a given file.
-     * @see #setDirectoryGraphicsFactory(java.util.function.Function) 
+     * @see #setDirectoryGraphicsFactory(java.util.function.Function)
      */
     public void setFileGraphicsFactory(
             Function<SimpleFile, Node> fileGraphicsFactory)

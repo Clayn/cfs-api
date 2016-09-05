@@ -11,12 +11,14 @@ import javafx.collections.ObservableList;
  */
 public class CFileSystemSelection
 {
+
     private final ObservableList<CFileSystemView.CFileSystemViewItem> selectedItems = FXCollections.observableArrayList();
-    private final ReadOnlyBooleanWrapper itemsSelected=new ReadOnlyBooleanWrapper();
+    private final ReadOnlyBooleanWrapper itemsSelected = new ReadOnlyBooleanWrapper();
 
     CFileSystemSelection()
     {
-        selectedItems.addListener(new ListChangeListener<CFileSystemView.CFileSystemViewItem>()
+        selectedItems.addListener(
+                new ListChangeListener<CFileSystemView.CFileSystemViewItem>()
         {
             @Override
             public void onChanged(

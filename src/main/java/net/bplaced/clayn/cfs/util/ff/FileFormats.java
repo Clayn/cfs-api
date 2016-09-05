@@ -17,6 +17,7 @@ public class FileFormats
 
     /**
      * The constant format for {@link CSVFile csv} files.
+     *
      * @since 0.2
      */
     public static final Function<SimpleFile, CSVFile> CSV = CSVFile::new;

@@ -15,6 +15,7 @@ import java.util.function.Predicate;
  */
 public interface TryingPredicate<T> extends Predicate<T>
 {
+
     public boolean tryTest(T val) throws Exception;
 
     @Override
@@ -28,6 +29,5 @@ public interface TryingPredicate<T> extends Predicate<T>
             throw new RuntimeException(ex);
         }
     }
-    
-    
+
 }

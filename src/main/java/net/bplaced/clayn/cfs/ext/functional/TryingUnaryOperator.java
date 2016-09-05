@@ -10,6 +10,7 @@ import java.util.function.UnaryOperator;
  */
 public interface TryingUnaryOperator<T> extends UnaryOperator<T>
 {
+
     public T tryApply(T val) throws Exception;
 
     @Override
@@ -23,6 +24,5 @@ public interface TryingUnaryOperator<T> extends UnaryOperator<T>
             throw new RuntimeException(ex);
         }
     }
-    
-    
+
 }
