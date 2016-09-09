@@ -1,5 +1,6 @@
 package net.bplaced.clayn.cfs.util.ff;
 
+import java.io.IOException;
 import net.bplaced.clayn.cfs.SimpleFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,6 @@ import org.slf4j.LoggerFactory;
  *
  * @author Clayn
  * @since 0.2
- * @version $Revision: 318 $
  */
 public abstract class FormatedFile
 {
@@ -24,14 +24,10 @@ public abstract class FormatedFile
      * {@link SimpleFile file}.
      *
      * @param file the file to format.
+     * @throws java.io.IOException if an I/O Exception occures while formating
      * @since 0.2
      */
-    public FormatedFile(SimpleFile file)
+    public FormatedFile(SimpleFile file) throws IOException
     {
-        if (logger.isWarnEnabled())
-        {
-            logger.warn(
-                    "Constructor of " + this.getClass() + " called. Consider to remove these calls");
-        }
     }
 }

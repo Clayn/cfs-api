@@ -1,5 +1,12 @@
 package net.bplaced.clayn.cfs.util;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Basic types for file sizes that provide you with methods to transform them
  * from one unit to another.
@@ -495,6 +502,46 @@ public enum SizeUnit
         return String.valueOf(val) + ' ' + toString();
     }
 
+    public String toString(long val)
+    {
+        return String.valueOf(val) + ' ' + toString();
+    }
+    
     private static final double MOD = 1000.0;
     
+    public static String toReadableString(long bVal)
+    {
+        if(bVal<0)
+        {
+            throw new IllegalArgumentException("Byte value must be >=0");
+        }
+        if(bVal==0)
+        {
+            return BYTE.toString(bVal);
+        }
+        Map<SizeUnit,String> parts=new HashMap<>();
+        List<SizeUnit> units=Arrays.asList(KILO_BYTE,MEGA_BYTE,GIGA_BYTE,TERRA_BYTE,PETA_BYTE,EXA_BYTE);
+        Comparator<SizeUnit> UNIT_ASC=Comparator.comparingInt(SizeUnit::ordinal).reversed();
+        Collections.sort(units, UNIT_ASC);
+        
+        for(SizeUnit unit:units)
+        {
+            
+            int num=(int) unit.convert(bVal, BYTE);
+            if(num>=1)
+            {
+                parts.put(unit, unit.toString(num));
+                bVal-=unit.toByte(num);
+            }
+        }
+        
+        if(bVal>0)
+        {
+            parts.put(BYTE, BYTE.toString(bVal));
+        }
+        StringBuilder builder=new StringBuilder(parts.size()*5);
+        parts.keySet().stream().sorted(UNIT_ASC)
+                .map(parts::get).map(" "::concat).forEach(builder::append);
+        return builder.toString().trim();
+    }
 }
