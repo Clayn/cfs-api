@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import net.bplaced.clayn.cfs.SimpleFile;
 import net.bplaced.clayn.cfs.util.ff.FormatedFile;
@@ -47,21 +45,14 @@ public class CSVFile extends FormatedFile implements Closeable
      * @throws RuntimeException if an I/O Exception occures
      * @since 0.2
      */
-    public CSVFile(SimpleFile file)
+    public CSVFile(SimpleFile file) throws IOException
     {
         super(file);
-        try
-        {
-            Objects.requireNonNull(file);
-            reader = new BufferedReader(new InputStreamReader(file.openRead(),
-                    file.getCharset()));
-            header = readHeaders();
-            Objects.requireNonNull(separation);
-        } catch (IOException ex)
-        {
-            Logger.getLogger(CSVFile.class.getName()).log(Level.SEVERE, null, ex);
-            throw new RuntimeException(ex);
-        }
+        Objects.requireNonNull(file);
+        reader = new BufferedReader(new InputStreamReader(file.openRead(),
+                file.getCharset()));
+        header = readHeaders();
+        Objects.requireNonNull(separation);
     }
 
     private String[] readHeaders() throws IOException

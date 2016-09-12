@@ -352,13 +352,78 @@ public class SizeUnitTest
         assertEquals(expResult, result, 0.1);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testToReadableString()
+    {
+        System.out.println("toReadableString");
+        long val=0;
+        assertEquals(BYTE.toString(val), SizeUnit.toReadableString(val));
+        val=123l;
+        assertEquals(BYTE.toString(val), SizeUnit.toReadableString(val));
+        
+        val=1000l;
+        assertEquals("1 kb", SizeUnit.toReadableString(val));
+        
+        val=1023l;
+        assertEquals("1 kb 23 b", SizeUnit.toReadableString(val));
+        
+        val=1001001123l;
+        assertEquals("1 Gb 1 Mb 1 kb 123 b", SizeUnit.toReadableString(val));
+        
+        val=1201011123l;
+        assertEquals("1 Gb 201 Mb 11 kb 123 b", SizeUnit.toReadableString(val));
+        
+        SizeUnit.toReadableString(-1);
+    }
+    
+    @Test
+    public void testToString_long()
+    {
+        System.out.println("toString_long");
+        long val = 123;
+        SizeUnit instance = BYTE;
+        String expResult = "123 b";
+        String result = instance.toString(val);
+        assertEquals(expResult, result);
+
+        instance = KILO_BYTE;
+        expResult = "123 kb";
+        result = instance.toString(val);
+        assertEquals(expResult, result);
+
+        instance = MEGA_BYTE;
+        expResult = "123 Mb";
+        result = instance.toString(val);
+        assertEquals(expResult, result);
+
+        instance = GIGA_BYTE;
+        expResult = "123 Gb";
+        result = instance.toString(val);
+        assertEquals(expResult, result);
+
+        instance = TERRA_BYTE;
+        expResult = "123 Tb";
+        result = instance.toString(val);
+        assertEquals(expResult, result);
+
+        instance = PETA_BYTE;
+        expResult = "123 Pb";
+        result = instance.toString(val);
+        assertEquals(expResult, result);
+
+        instance = EXA_BYTE;
+        expResult = "123 Eb";
+        result = instance.toString(val);
+        assertEquals(expResult, result);
+    }
+    
     /**
      * Test of toString method, of class SizeUnit.
      */
     @Test
     public void testToString_double()
     {
-        System.out.println("toString");
+        System.out.println("toString_double");
         double val = 1000.0;
         SizeUnit instance = BYTE;
         String expResult = "1000.0 b";

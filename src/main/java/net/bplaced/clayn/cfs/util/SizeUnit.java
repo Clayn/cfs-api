@@ -1,5 +1,12 @@
 package net.bplaced.clayn.cfs.util;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Basic types for file sizes that provide you with methods to transform them
  * from one unit to another.
@@ -11,6 +18,9 @@ package net.bplaced.clayn.cfs.util;
 public enum SizeUnit
 {
 
+    /**
+     * SizeUnit for byte values. Represents as {@code "b"}
+     */
     BYTE("b")
     {
         @Override
@@ -62,6 +72,9 @@ public enum SizeUnit
         }
 
     },
+    /**
+     * SizeUnit for kilobyte values. Represents as {@code "kb"}
+     */
     KILO_BYTE("kb")
     {
         @Override
@@ -113,6 +126,9 @@ public enum SizeUnit
         }
 
     },
+    /**
+     * SizeUnit for megabyte values. Represents as {@code "Mb"}
+     */
     MEGA_BYTE("Mb")
     {
         @Override
@@ -164,6 +180,9 @@ public enum SizeUnit
         }
 
     },
+    /**
+     * SizeUnit for gigabyte values. Represents as {@code "Gb"}
+     */
     GIGA_BYTE("Gb")
     {
         @Override
@@ -215,6 +234,9 @@ public enum SizeUnit
         }
 
     },
+    /**
+     * SizeUnit for terrabyte values. Represents as {@code "Tb"}
+     */
     TERRA_BYTE("Tb")
     {
         @Override
@@ -266,6 +288,9 @@ public enum SizeUnit
         }
 
     },
+    /**
+     * SizeUnit for petabyte values. Represents as {@code "Pb"}
+     */
     PETA_BYTE("Pb")
     {
         @Override
@@ -317,6 +342,9 @@ public enum SizeUnit
         }
 
     },
+    /**
+     * SizeUnit for exabyte values. Represents as {@code "Eb"}
+     */
     EXA_BYTE("Eb")
     {
         @Override
@@ -375,45 +403,84 @@ public enum SizeUnit
 
     private final String shortString;
 
-    public double toByte(double val)
-    {
-        return this.convert(val, BYTE);
-    }
+    /**
+     * Converts the given value to a {@link #BYTE byte} value. The value gets
+     * interpreted as a value in this unit.
+     *
+     * @param val the value to convert
+     * @return the given value converted from this unit to {@link #BYTE byte}
+     */
+    public abstract double toByte(double val);
 
-    public double toKiloByte(double val)
-    {
-        throw new AbstractMethodError();
-    }
+    /**
+     * Converts the given value to a {@link #KILO_BYTE kilobyte} value. The
+     * value gets interpreted as a value in this unit.
+     *
+     * @param val the value to convert
+     * @return the given value converted from this unit to
+     * {@link #KILO_BYTE kilobyte}
+     */
+    public abstract double toKiloByte(double val);
 
-    public double toMegaByte(double val)
-    {
-        throw new AbstractMethodError();
-    }
+    /**
+     * Converts the given value to a {@link #MEGA_BYTE megabyte} value. The
+     * value gets interpreted as a value in this unit.
+     *
+     * @param val the value to convert
+     * @return the given value converted from this unit to
+     * {@link #MEGA_BYTE megabyte}
+     */
+    public abstract double toMegaByte(double val);
 
-    public double toGigaByte(double val)
-    {
-        throw new AbstractMethodError();
-    }
+    /**
+     * Converts the given value to a {@link #GIGA_BYTE giabyte} value. The value
+     * gets interpreted as a value in this unit.
+     *
+     * @param val the value to convert
+     * @return the given value converted from this unit to
+     * {@link #GIGA_BYTE gigabyte}
+     */
+    public abstract double toGigaByte(double val);
 
-    public double toTerraByte(double val)
-    {
-        throw new AbstractMethodError();
-    }
+    /**
+     * Converts the given value to a {@link #TERRA_BYTE terrabyte} value. The
+     * value gets interpreted as a value in this unit.
+     *
+     * @param val the value to convert
+     * @return the given value converted from this unit to
+     * {@link #TERRA_BYTE terrabyte}
+     */
+    public abstract double toTerraByte(double val);
 
-    public double toPetaByte(double val)
-    {
-        throw new AbstractMethodError();
-    }
+    /**
+     * Converts the given value to a {@link #PETA_BYTE petabyte} value. The
+     * value gets interpreted as a value in this unit.
+     *
+     * @param val the value to convert
+     * @return the given value converted from this unit to
+     * {@link #PETA_BYTE petabyte}
+     */
+    public abstract double toPetaByte(double val);
 
-    public double toExaByte(double val)
-    {
-        throw new AbstractMethodError();
-    }
+    /**
+     * Converts the given value to a {@link #EXA_BYTE exabyte} value. The value
+     * gets interpreted as a value in this unit.
+     *
+     * @param val the value to convert
+     * @return the given value converted from this unit to
+     * {@link #EXA_BYTE exabyte}
+     */
+    public abstract double toExaByte(double val);
 
-    public double convert(double val, SizeUnit from)
-    {
-        throw new AbstractMethodError();
-    }
+    /**
+     * Converts the given value from the given {@link SizeUnit unit} to this
+     * one.
+     *
+     * @param val the value to convert
+     * @param from the unit the value gets converted from
+     * @return the value converted to this unit
+     */
+    public abstract double convert(double val, SizeUnit from);
 
     @Override
     public String toString()
@@ -421,11 +488,60 @@ public enum SizeUnit
         return shortString;
     }
 
+    /**
+     * Returns a representation of the given value for this unit. This method
+     * returns a string that contains the given value followed by the string
+     * representation of this unit.
+     *
+     * @param val the value to convert
+     * @return a string that contains the value together with the string
+     * representation of this unit
+     */
     public String toString(double val)
     {
         return String.valueOf(val) + ' ' + toString();
     }
 
+    public String toString(long val)
+    {
+        return String.valueOf(val) + ' ' + toString();
+    }
+    
     private static final double MOD = 1000.0;
-
+    
+    public static String toReadableString(long bVal)
+    {
+        if(bVal<0)
+        {
+            throw new IllegalArgumentException("Byte value must be >=0");
+        }
+        if(bVal==0)
+        {
+            return BYTE.toString(bVal);
+        }
+        Map<SizeUnit,String> parts=new HashMap<>();
+        List<SizeUnit> units=Arrays.asList(KILO_BYTE,MEGA_BYTE,GIGA_BYTE,TERRA_BYTE,PETA_BYTE,EXA_BYTE);
+        Comparator<SizeUnit> UNIT_ASC=Comparator.comparingInt(SizeUnit::ordinal).reversed();
+        Collections.sort(units, UNIT_ASC);
+        
+        for(SizeUnit unit:units)
+        {
+            
+            int num=(int) unit.convert(bVal, BYTE);
+            if(num>=1)
+            {
+                parts.put(unit, unit.toString(num));
+                bVal-=unit.toByte(num);
+            }
+        }
+        
+        if(bVal>0)
+        {
+            parts.put(BYTE, BYTE.toString(bVal));
+        }
+        StringBuilder builder=new StringBuilder(parts.size()*5);
+        parts.keySet().stream().sorted(UNIT_ASC)
+                .map(parts::get).map(" "::concat).forEach(builder::append);
+        return builder.toString().trim();
+    }
 }

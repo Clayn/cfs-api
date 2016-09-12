@@ -1,6 +1,6 @@
 package net.bplaced.clayn.cfs.util.ff;
 
-import java.util.function.Function;
+import net.bplaced.clayn.cfs.ext.functional.TryingFunction;
 
 /**
  * Classes that implement this interface can be formated using every function
@@ -23,5 +23,5 @@ public interface Formatable<T>
      * @return the result of the given formater
      * @since 0.2
      */
-    public <R> R as(Function<T, R> formater);
+    public <R> R as(TryingFunction<T, R> formater);
 }

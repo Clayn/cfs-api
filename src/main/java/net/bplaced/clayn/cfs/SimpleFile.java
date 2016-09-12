@@ -5,9 +5,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.Objects;
-import java.util.function.Function;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import net.bplaced.clayn.cfs.ext.functional.TryingFunction;
 import net.bplaced.clayn.cfs.util.Child;
 import net.bplaced.clayn.cfs.util.IOUtils;
 import net.bplaced.clayn.cfs.util.SizeUnit;
@@ -180,11 +180,11 @@ public interface SimpleFile extends Child<Directory>, Formatable<SimpleFile>, De
      * @since 0.2
      */
     @Override
-    public default <R> R as(Function<SimpleFile, R> formatter)
+    public default <R> R as(TryingFunction<SimpleFile, R> formatter)
     {
         return formatter.apply(this);
     }
-
+    
     /**
      * Returns the charset of this file.
      *
