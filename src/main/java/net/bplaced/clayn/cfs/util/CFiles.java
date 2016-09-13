@@ -19,8 +19,7 @@ import net.bplaced.clayn.cfs.SimpleFile;
  * adapted the most common can be found here.
  *
  * @author Clayn
- * @since 0.2
- */
+ * @since 0.2.0 */
 public final class CFiles
 {
 
@@ -56,8 +55,7 @@ public final class CFiles
      * @return the size of the directory
      * @throws RuntimeException if an exception occures while listing the files
      * and directories.
-     * @since 0.2
-     */
+     * @since 0.2.0     */
     public static long getSize(Directory dir)
     {
         if (!dir.exists())

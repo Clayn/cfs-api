@@ -24,8 +24,7 @@ import net.bplaced.clayn.cfs.util.ff.FormatedFile;
  * into your local filesystem. 
  *
  * @author Clayn <clayn_osmato@gmx.de>
- * @since 0.2
- */
+ * @since 0.2.0 */
 public class TemporaryFile extends FormatedFile
 {
 

@@ -9,8 +9,7 @@ import java.io.IOException;
  * require the resources to exist, must fail after they were deleted.
  *
  * @author Clayn
- * @since 0.2
- */
+ * @since 0.2.0 */
 public interface Deletable
 {
 
@@ -18,7 +17,6 @@ public interface Deletable
      * Attempts to delete whatever resources are wrapped by this instance.
      *
      * @throws IOException if an I/O Exception occures during the deletion
-     * @since 0.2
-     */
+     * @since 0.2.0     */
     public void delete() throws IOException;
 }

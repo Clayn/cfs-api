@@ -177,8 +177,7 @@ public interface SimpleFile extends Child<Directory>, Formatable<SimpleFile>, De
      * @param <R> the type the file should be formatted to
      * @param formatter the function to format the file
      * @return the formatted file
-     * @since 0.2
-     */
+     * @since 0.2.0     */
     @Override
     public default <R> R as(TryingFunction<SimpleFile, R> formatter)
     {
@@ -189,8 +188,7 @@ public interface SimpleFile extends Child<Directory>, Formatable<SimpleFile>, De
      * Returns the charset of this file.
      *
      * @return the files charset
-     * @since 0.2
-     */
+     * @since 0.2.0     */
     public default Charset getCharset()
     {
         return Charset.defaultCharset();
@@ -205,8 +203,7 @@ public interface SimpleFile extends Child<Directory>, Formatable<SimpleFile>, De
      *
      * @return the OutputStream for appending the file
      * @throws IOException if an I/O Exception occures
-     * @since 0.2
-     * @see #openWrite()
+     * @since 0.2.0     * @see #openWrite()
      */
     public default OutputStream openAppend() throws IOException
     {
@@ -237,8 +234,7 @@ public interface SimpleFile extends Child<Directory>, Formatable<SimpleFile>, De
      * @param file2 the second file to check
      * @return {@code true} if and only if the given files have the same name
      * and parents, {@code false} otherwise.
-     * @since 0.2
-     */
+     * @since 0.2.0     */
     public static boolean equals(SimpleFile file1, SimpleFile file2)
     {
         if (file1 == file2)

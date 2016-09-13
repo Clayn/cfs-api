@@ -12,8 +12,7 @@ import org.slf4j.LoggerFactory;
  * provides an {@link Logger logger} by using the {@code slf4j} framework.
  *
  * @author Clayn
- * @since 0.2
- */
+ * @since 0.2.0 */
 public abstract class FormatedFile
 {
 
@@ -25,8 +24,7 @@ public abstract class FormatedFile
      *
      * @param file the file to format.
      * @throws java.io.IOException if an I/O Exception occures while formating
-     * @since 0.2
-     */
+     * @since 0.2.0     */
     public FormatedFile(SimpleFile file) throws IOException
     {
     }

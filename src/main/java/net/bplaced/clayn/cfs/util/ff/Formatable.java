@@ -9,8 +9,7 @@ import net.bplaced.clayn.cfs.ext.functional.TryingFunction;
  *
  * @author Clayn
  * @param <T> the type that should be formated. Normally the class itself
- * @since 0.2
- * @version $Revision: 329 $
+ * @since 0.2.0 * @version $Revision: 329 $
  */
 public interface Formatable<T>
 {
@@ -21,7 +20,6 @@ public interface Formatable<T>
      * @param <R> the type the class gets formatted to
      * @param formater the formater to use
      * @return the result of the given formater
-     * @since 0.2
-     */
+     * @since 0.2.0     */
     public <R> R as(TryingFunction<T, R> formater);
 }
