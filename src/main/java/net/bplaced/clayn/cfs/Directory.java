@@ -56,7 +56,8 @@ public interface Directory extends Child<Directory>, Deletable
 
     /**
      * Lists all files that pass through the given filter. Only files are
-     * returned so sub directories won't be in the list.
+     * returned so sub directories won't be in the list. All returned files 
+     * exist.
      *
      * @param sff the filter to check the files
      * @return a list of all files in the directory that match the given filter

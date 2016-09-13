@@ -86,6 +86,10 @@ public interface SimpleFileFilter extends Predicate<SimpleFile>
      */
     public static SimpleFileFilter nameFilter(String name)
     {
-        return (sf) -> sf.getName().contains(name);
+        return (SimpleFile sf) ->
+        {
+            String fName=sf.getName();
+            return fName.substring(0, fName.lastIndexOf(".")).contains(name);
+        };
     }
 }
