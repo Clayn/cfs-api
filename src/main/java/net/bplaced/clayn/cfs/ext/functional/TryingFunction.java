@@ -11,8 +11,9 @@ import java.util.function.Function;
  *
  * @author Clayn <clayn_osmato@gmx.de>
  */
-public interface TryingFunction<T,R> extends Function<T, R>
+public interface TryingFunction<T, R> extends Function<T, R>
 {
+
     public R tryApply(T t) throws Exception;
 
     @Override
@@ -26,6 +27,5 @@ public interface TryingFunction<T,R> extends Function<T, R>
             throw new RuntimeException(ex);
         }
     }
-    
-    
+
 }

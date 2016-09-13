@@ -155,9 +155,10 @@ public final class IOUtils
     }
 
     /**
-     * Creates a Zip File backup of the given filesystems content. Each directory 
-     * will be added together with their files. Empty directories will also be 
-     * included.
+     * Creates a Zip File backup of the given filesystems content. Each
+     * directory will be added together with their files. Empty directories will
+     * also be included.
+     *
      * @param cfs the filesystem to backup
      * @param backFile the outputfile for the backup
      * @throws IOException if an I/O Exception occures

@@ -10,7 +10,7 @@ import net.bplaced.clayn.cfs.util.ff.tmp.TemporaryFile;
  * formats are possible. This collection may be extended in further releases.
  *
  * @author Clayn
- * @since 0.2.0 * @version $Revision: 334 $
+ * @since 0.2.0
  */
 public class FileFormats
 {
@@ -18,8 +18,9 @@ public class FileFormats
     /**
      * The constant format for {@link CSVFile csv} files.
      *
-     * @since 0.2.0     */
+     * @since 0.2.0
+     */
     public static final TryingFunction<SimpleFile, CSVFile> CSV = CSVFile::new;
-    
-    public static final TryingFunction<SimpleFile,TemporaryFile> TMP=TemporaryFile::new;
+
+    public static final TryingFunction<SimpleFile, TemporaryFile> TMP = TemporaryFile::new;
 }

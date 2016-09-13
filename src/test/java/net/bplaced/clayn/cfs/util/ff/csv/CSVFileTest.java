@@ -83,26 +83,29 @@ public class CSVFileTest
     public void testReadLine() throws Exception
     {
         SimpleFile sf = Mockito.mock(SimpleFile.class);
-        String[] hResult=new String[]{"h1","h2","h3","h4","h5"};
+        String[] hResult = new String[]
+        {
+            "h1", "h2", "h3", "h4", "h5"
+        };
         Mockito.when(sf.getCharset()).thenReturn(Charset.defaultCharset());
         Mockito.when(sf.openRead()).thenReturn(
                 getClass().getResourceAsStream(
                         "/csv/Content1.csv"));
         CSVFile csv = new CSVFile(sf);
-        String[] header=csv.getHeader();
+        String[] header = csv.getHeader();
         assertEquals(hResult.length, header.length);
         assertArrayEquals(hResult, hResult);
-        Map<String,String> line=csv.readLine();
-        int lineRead=1;
+        Map<String, String> line = csv.readLine();
+        int lineRead = 1;
         assertEquals(header.length, line.size());
-        for(String h:hResult)
+        for (String h : hResult)
         {
             assertTrue(line.containsKey(h));
         }
-        for(int i=0;i<hResult.length;++i)
+        for (int i = 0; i < hResult.length; ++i)
         {
-            int hIndex=i+1;
-            assertEquals("v"+lineRead+hIndex, line.get(header[i]));
+            int hIndex = i + 1;
+            assertEquals("v" + lineRead + hIndex, line.get(header[i]));
         }
     }
 

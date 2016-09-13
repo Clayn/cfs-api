@@ -42,7 +42,8 @@ public class CSVFile extends FormatedFile implements Closeable
      *
      * @param file the file to interpret
      * @throws RuntimeException if an I/O Exception occures
-     * @since 0.2.0     */
+     * @since 0.2.0
+     */
     public CSVFile(SimpleFile file) throws IOException
     {
         super(file);
@@ -81,7 +82,8 @@ public class CSVFile extends FormatedFile implements Closeable
      * Returns the headers read from this file.
      *
      * @return the headers
-     * @since 0.2.0     */
+     * @since 0.2.0
+     */
     public String[] getHeader()
     {
         return Arrays.copyOf(header, header.length);
@@ -95,7 +97,7 @@ public class CSVFile extends FormatedFile implements Closeable
      * @return a list with all lines from this file.
      * @throws IOException if an I/O Exception occures during the reading
      * @throws RuntimeException if a line caused an exception
-     * @since 0.2.0     * @see #readLine()
+     * @since 0.2.0 * @see #readLine()
      */
     public List<Map<String, String>> readAllLines() throws IOException
     {
@@ -119,7 +121,7 @@ public class CSVFile extends FormatedFile implements Closeable
      * @throws IOException if an I/O Exception occures while reading
      * @throws RuntimeException if the count of read columns doesn't match the
      * headers count
-     * @since 0.2.0     * @see #readAllLines()
+     * @since 0.2.0 * @see #readAllLines()
      */
     public Map<String, String> readLine() throws IOException
     {
@@ -148,7 +150,8 @@ public class CSVFile extends FormatedFile implements Closeable
      * returned character is guaranted to be one of {@link #SEPARATION_CHARS}.
      *
      * @return the character used for separation
-     * @since 0.2.0     */
+     * @since 0.2.0
+     */
     public char getSeparationCharacter()
     {
         return separation.charAt(0);
@@ -158,7 +161,7 @@ public class CSVFile extends FormatedFile implements Closeable
      * {@inheritDoc}
      *
      * @throws IOException {@inheritDoc }
-     * @since 0.2.0     * @see AutoCloseable#close()
+     * @since 0.2.0 * @see AutoCloseable#close()
      */
     @Override
     public void close() throws IOException

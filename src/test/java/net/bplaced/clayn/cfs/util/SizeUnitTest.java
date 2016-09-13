@@ -356,26 +356,26 @@ public class SizeUnitTest
     public void testToReadableString()
     {
         System.out.println("toReadableString");
-        long val=0;
+        long val = 0;
         assertEquals(BYTE.toString(val), SizeUnit.toReadableString(val));
-        val=123l;
+        val = 123l;
         assertEquals(BYTE.toString(val), SizeUnit.toReadableString(val));
-        
-        val=1000l;
+
+        val = 1000l;
         assertEquals("1 kb", SizeUnit.toReadableString(val));
-        
-        val=1023l;
+
+        val = 1023l;
         assertEquals("1 kb 23 b", SizeUnit.toReadableString(val));
-        
-        val=1001001123l;
+
+        val = 1001001123l;
         assertEquals("1 Gb 1 Mb 1 kb 123 b", SizeUnit.toReadableString(val));
-        
-        val=1201011123l;
+
+        val = 1201011123l;
         assertEquals("1 Gb 201 Mb 11 kb 123 b", SizeUnit.toReadableString(val));
-        
+
         SizeUnit.toReadableString(-1);
     }
-    
+
     @Test
     public void testToString_long()
     {
@@ -416,7 +416,7 @@ public class SizeUnitTest
         result = instance.toString(val);
         assertEquals(expResult, result);
     }
-    
+
     /**
      * Test of toString method, of class SizeUnit.
      */

@@ -144,7 +144,8 @@ public interface Directory extends Child<Directory>, Deletable
      * same name as long as they have different parents.
      *
      * @return the name of the directory
-     * @since 0.2.0     */
+     * @since 0.2.0
+     */
     public String getName();
 
     /**
@@ -152,7 +153,8 @@ public interface Directory extends Child<Directory>, Deletable
      *
      * @return {@code true} if and only if {@code getParent() == null} is
      * {@code true}, {@code false} otherwise.
-     * @since 0.2.0     */
+     * @since 0.2.0
+     */
     public default boolean isRoot()
     {
         return getParent() == null;
@@ -167,7 +169,8 @@ public interface Directory extends Child<Directory>, Deletable
      * @param dir2 the second directory to check
      * @return {@code ture} if and only if the directories have the same parent
      * and the same name, {@code false} otherwise.
-     * @since 0.2.0     */
+     * @since 0.2.0
+     */
     public static boolean equals(Directory dir1, Directory dir2)
     {
         if (dir1 == dir2)
