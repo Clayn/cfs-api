@@ -157,7 +157,7 @@ public class IOUtilsTest
         when(root.toString()).thenReturn("Root/");
         when(sub1.toString()).thenReturn("Root/Sub1/");
         when(sub2.toString()).thenReturn("Root/Sub2/");
-        when(sub3.toString()).thenReturn("Root/Sub2/Sub3/");
+        when(sub3.toString()).thenReturn("Root/Sub2/Sub3");
         TestHelper.mockFilesToDir(sub1, TestHelper.mockFile("File1.txt",
                 "Hello World"));
         TestHelper.mockFilesToDir(sub2, TestHelper.mockFile("File2.txt",
