@@ -2,19 +2,30 @@ package net.bplaced.clayn.cfs.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import javafx.util.Pair;
+import net.bplaced.clayn.cfs.CFileSystem;
+import net.bplaced.clayn.cfs.Directory;
 import net.bplaced.clayn.cfs.SimpleFile;
+import net.bplaced.clayn.cfs.help.TestHelper;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import static org.mockito.Mockito.*;
 
 /**
@@ -127,5 +138,118 @@ public class IOUtilsTest
         assertEquals(expectedresult.length, result.length);
         assertArrayEquals(expectedresult, result);
         assertEquals(data, new String(result, cs));
+    }
+
+    @Test
+    public void testBackupToZip() throws IOException
+    {
+        System.out.println("backup2zip");
+        TemporaryFolder folder = new TemporaryFolder();
+        folder.create();
+        File zip = folder.newFile("Backup.zip");
+        CFileSystem cfs = mock(CFileSystem.class);
+        Directory root;
+        Directory sub1 = TestHelper.mockDirectory("Sub1", false);
+        Directory sub2;
+        Directory sub3 = TestHelper.mockDirectory("Sub3", false);
+        sub2 = TestHelper.mockDirectory("Sub2", false, sub3);
+        root = TestHelper.mockDirectory("Root", true, sub1, sub2);
+        when(root.toString()).thenReturn("Root/");
+        when(sub1.toString()).thenReturn("Root/Sub1/");
+        when(sub2.toString()).thenReturn("Root/Sub2/");
+        when(sub3.toString()).thenReturn("Root/Sub2/Sub3/");
+        TestHelper.mockFilesToDir(sub1, TestHelper.mockFile("File1.txt",
+                "Hello World"));
+        TestHelper.mockFilesToDir(sub2, TestHelper.mockFile("File2.txt",
+                "World Hello"), TestHelper.mockFile("File2_2.txt", "Foo"));
+        TestHelper.mockFilesToDir(root, TestHelper.mockFile("File3.txt",
+                "Roooot"));
+        when(cfs.getRoot()).thenReturn(root);
+        assertBackUpFileSystem(cfs);
+        IOUtils.backUpToZip(cfs, zip);
+        int fileC = 0;
+        int dirC = 0;
+        try (ZipFile zipFile = new ZipFile(zip))
+        {
+            assertEquals(8, zipFile.size());
+            Enumeration<? extends ZipEntry> enume = zipFile.entries();
+            while (enume.hasMoreElements())
+            {
+                ZipEntry entry = enume.nextElement();
+                String name = entry.getName();
+                if (name.contains("/"))
+                {
+                    if (name.endsWith("/"))
+                    {
+                        name = name.substring(0, name.length() - 1);
+                    }
+                    name = name.substring(name.lastIndexOf("/") + 1,
+                            name.length());
+                }
+                if (entry.isDirectory())
+                {
+                    dirC++;
+                    assertTrue(name.startsWith("Sub") || name.startsWith(
+                            "Root"));
+
+                    System.out.println(name);
+                } else
+                {
+                    fileC++;
+                    assertTrue(name.startsWith("File"));
+                    assertTrue(name.endsWith(".txt"));
+                }
+            }
+            assertEquals(4, fileC);
+            assertEquals(4, dirC);
+            assertTrue(zipFile.stream().map(ZipEntry::getName).anyMatch(
+                    "Root/Sub2/"::equals));
+            ZipEntry file1 = zipFile.getEntry("Root/Sub1/File1.txt");
+            ZipEntry file2 = zipFile.getEntry("Root/Sub2/File2.txt");
+            ZipEntry file3 = zipFile.getEntry("Root/Sub2/File2_2.txt");
+            ZipEntry file4 = zipFile.getEntry("Root/File3.txt");
+
+            assertTrue(Stream.of(file1, file2, file3, file4).allMatch(
+                    Objects::nonNull));
+
+            assertContent(zipFile, file1, "Hello World");
+            assertContent(zipFile, file2, "World Hello");
+            assertContent(zipFile, file3, "Foo");
+            assertContent(zipFile, file4, "Roooot");
+        }
+        zip=folder.newFile("Test2.zip");
+        SimpleFile sf=mock(SimpleFile.class);
+        when(sf.getName()).thenReturn("NoFile.txt");
+        when(sf.exists()).thenReturn(false);
+        TestHelper.mockFilesToDir(root, TestHelper.mockFile("File3.txt",
+                "Roooot"),sf);
+        IOUtils.backUpToZip(cfs, zip);
+        try(ZipFile zFile=new ZipFile(zip))
+        {
+            assertEquals(8, zFile.size());
+        }
+    }
+
+    private void assertContent(ZipFile file, ZipEntry entry, String content) throws IOException
+    {
+        try (InputStream in = file.getInputStream(entry); ByteArrayOutputStream bout = new ByteArrayOutputStream(
+                (int) entry.getSize()))
+        {
+            IOUtils.copy(in, bout);
+            String read=new String(bout.toByteArray());
+            assertEquals(content, read);
+        }
+    }
+
+    private void assertBackUpFileSystem(CFileSystem cfs) throws IOException
+    {
+        assertEquals("Root", cfs.getRoot().getName());
+        assertEquals(2, cfs.getRoot().listDirectories().size());
+        assertEquals(1, cfs.getRoot().listFiles().size());
+        assertEquals(1,
+                cfs.getRoot().changeDirectory("Sub2").listDirectories().size());
+        assertEquals(0,
+                cfs.getRoot().changeDirectory("Sub1").listDirectories().size());
+        assertEquals(2, cfs.getRoot().changeDirectory("Sub2").listFiles().size());
     }
 }
