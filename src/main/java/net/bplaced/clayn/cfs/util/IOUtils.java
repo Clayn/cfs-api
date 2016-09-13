@@ -1,10 +1,16 @@
 package net.bplaced.clayn.cfs.util;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+import net.bplaced.clayn.cfs.CFileSystem;
+import net.bplaced.clayn.cfs.Directory;
 import net.bplaced.clayn.cfs.SimpleFile;
 
 /**
@@ -147,5 +153,46 @@ public final class IOUtils
     public static byte[] readAllBytes(SimpleFile file) throws IOException
     {
         return CFiles.readAllBytes(file);
+    }
+
+    public static void backUpToZip(CFileSystem cfs, File backFile) throws IOException
+    {
+        try (ZipOutputStream zout = new ZipOutputStream(new FileOutputStream(
+                backFile)))
+        {
+            zipDir(zout, cfs.getRoot());
+            zout.finish();
+            zout.flush();
+        }
+    }
+
+    private static void zipDir(ZipOutputStream zout, Directory dir) throws IOException
+    {
+        String path = dir.toString();
+        if (!path.endsWith("/"))
+        {
+            path = path + "/";
+        }
+        zout.putNextEntry(new ZipEntry(path));
+        zout.closeEntry();
+        for (Directory sub : dir.listDirectories())
+        {
+            zipDir(zout, sub);
+        }
+        for (SimpleFile file : dir.listFiles())
+        {
+            if (!file.exists())
+            {
+                continue;
+            }
+            path = file.toString();
+            ZipEntry entry = new ZipEntry(path);
+            zout.putNextEntry(entry);
+            try (InputStream in = file.openRead())
+            {
+                IOUtils.copy(in, zout);
+            }
+            zout.closeEntry();
+        }
     }
 }
