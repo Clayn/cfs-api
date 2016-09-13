@@ -21,8 +21,7 @@ import net.bplaced.clayn.cfs.util.ff.FormatedFile;
  * defines which one will be used for the file.
  *
  * @author Clayn
- * @since 0.2
- * @version $Revision: 318 $
+ * @since 0.2.0 * @version $Revision: 318 $
  */
 public class CSVFile extends FormatedFile implements Closeable
 {
@@ -43,7 +42,7 @@ public class CSVFile extends FormatedFile implements Closeable
      *
      * @param file the file to interpret
      * @throws RuntimeException if an I/O Exception occures
-     * @since 0.2
+     * @since 0.2.0
      */
     public CSVFile(SimpleFile file) throws IOException
     {
@@ -83,7 +82,7 @@ public class CSVFile extends FormatedFile implements Closeable
      * Returns the headers read from this file.
      *
      * @return the headers
-     * @since 0.2
+     * @since 0.2.0
      */
     public String[] getHeader()
     {
@@ -98,8 +97,7 @@ public class CSVFile extends FormatedFile implements Closeable
      * @return a list with all lines from this file.
      * @throws IOException if an I/O Exception occures during the reading
      * @throws RuntimeException if a line caused an exception
-     * @since 0.2
-     * @see #readLine()
+     * @since 0.2.0 * @see #readLine()
      */
     public List<Map<String, String>> readAllLines() throws IOException
     {
@@ -123,8 +121,7 @@ public class CSVFile extends FormatedFile implements Closeable
      * @throws IOException if an I/O Exception occures while reading
      * @throws RuntimeException if the count of read columns doesn't match the
      * headers count
-     * @since 0.2
-     * @see #readAllLines()
+     * @since 0.2.0 * @see #readAllLines()
      */
     public Map<String, String> readLine() throws IOException
     {
@@ -153,7 +150,7 @@ public class CSVFile extends FormatedFile implements Closeable
      * returned character is guaranted to be one of {@link #SEPARATION_CHARS}.
      *
      * @return the character used for separation
-     * @since 0.2
+     * @since 0.2.0
      */
     public char getSeparationCharacter()
     {
@@ -164,8 +161,7 @@ public class CSVFile extends FormatedFile implements Closeable
      * {@inheritDoc}
      *
      * @throws IOException {@inheritDoc }
-     * @since 0.2
-     * @see AutoCloseable#close()
+     * @since 0.2.0 * @see AutoCloseable#close()
      */
     @Override
     public void close() throws IOException

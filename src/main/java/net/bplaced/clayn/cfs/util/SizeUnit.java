@@ -506,40 +506,42 @@ public enum SizeUnit
     {
         return String.valueOf(val) + ' ' + toString();
     }
-    
+
     private static final double MOD = 1000.0;
-    
+
     public static String toReadableString(long bVal)
     {
-        if(bVal<0)
+        if (bVal < 0)
         {
             throw new IllegalArgumentException("Byte value must be >=0");
         }
-        if(bVal==0)
+        if (bVal == 0)
         {
             return BYTE.toString(bVal);
         }
-        Map<SizeUnit,String> parts=new HashMap<>();
-        List<SizeUnit> units=Arrays.asList(KILO_BYTE,MEGA_BYTE,GIGA_BYTE,TERRA_BYTE,PETA_BYTE,EXA_BYTE);
-        Comparator<SizeUnit> UNIT_ASC=Comparator.comparingInt(SizeUnit::ordinal).reversed();
+        Map<SizeUnit, String> parts = new HashMap<>();
+        List<SizeUnit> units = Arrays.asList(KILO_BYTE, MEGA_BYTE, GIGA_BYTE,
+                TERRA_BYTE, PETA_BYTE, EXA_BYTE);
+        Comparator<SizeUnit> UNIT_ASC = Comparator.comparingInt(
+                SizeUnit::ordinal).reversed();
         Collections.sort(units, UNIT_ASC);
-        
-        for(SizeUnit unit:units)
+
+        for (SizeUnit unit : units)
         {
-            
-            int num=(int) unit.convert(bVal, BYTE);
-            if(num>=1)
+
+            int num = (int) unit.convert(bVal, BYTE);
+            if (num >= 1)
             {
                 parts.put(unit, unit.toString(num));
-                bVal-=unit.toByte(num);
+                bVal -= unit.toByte(num);
             }
         }
-        
-        if(bVal>0)
+
+        if (bVal > 0)
         {
             parts.put(BYTE, BYTE.toString(bVal));
         }
-        StringBuilder builder=new StringBuilder(parts.size()*5);
+        StringBuilder builder = new StringBuilder(parts.size() * 5);
         parts.keySet().stream().sorted(UNIT_ASC)
                 .map(parts::get).map(" "::concat).forEach(builder::append);
         return builder.toString().trim();

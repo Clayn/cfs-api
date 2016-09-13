@@ -157,7 +157,7 @@ public class IOUtilsTest
         when(root.toString()).thenReturn("Root/");
         when(sub1.toString()).thenReturn("Root/Sub1/");
         when(sub2.toString()).thenReturn("Root/Sub2/");
-        when(sub3.toString()).thenReturn("Root/Sub2/Sub3/");
+        when(sub3.toString()).thenReturn("Root/Sub2/Sub3");
         TestHelper.mockFilesToDir(sub1, TestHelper.mockFile("File1.txt",
                 "Hello World"));
         TestHelper.mockFilesToDir(sub2, TestHelper.mockFile("File2.txt",
@@ -217,14 +217,14 @@ public class IOUtilsTest
             assertContent(zipFile, file3, "Foo");
             assertContent(zipFile, file4, "Roooot");
         }
-        zip=folder.newFile("Test2.zip");
-        SimpleFile sf=mock(SimpleFile.class);
+        zip = folder.newFile("Test2.zip");
+        SimpleFile sf = mock(SimpleFile.class);
         when(sf.getName()).thenReturn("NoFile.txt");
         when(sf.exists()).thenReturn(false);
         TestHelper.mockFilesToDir(root, TestHelper.mockFile("File3.txt",
-                "Roooot"),sf);
+                "Roooot"), sf);
         IOUtils.backUpToZip(cfs, zip);
-        try(ZipFile zFile=new ZipFile(zip))
+        try (ZipFile zFile = new ZipFile(zip))
         {
             assertEquals(8, zFile.size());
         }
@@ -236,7 +236,7 @@ public class IOUtilsTest
                 (int) entry.getSize()))
         {
             IOUtils.copy(in, bout);
-            String read=new String(bout.toByteArray());
+            String read = new String(bout.toByteArray());
             assertEquals(content, read);
         }
     }

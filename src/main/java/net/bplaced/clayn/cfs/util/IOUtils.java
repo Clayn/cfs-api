@@ -18,7 +18,6 @@ import net.bplaced.clayn.cfs.SimpleFile;
  *
  * @author Clayn
  * @since 0.1
- * @version $Revision: 329 $
  */
 public final class IOUtils
 {
@@ -155,6 +154,16 @@ public final class IOUtils
         return CFiles.readAllBytes(file);
     }
 
+    /**
+     * Creates a Zip File backup of the given filesystems content. Each
+     * directory will be added together with their files. Empty directories will
+     * also be included.
+     *
+     * @param cfs the filesystem to backup
+     * @param backFile the outputfile for the backup
+     * @throws IOException if an I/O Exception occures
+     * @since 0.2.0
+     */
     public static void backUpToZip(CFileSystem cfs, File backFile) throws IOException
     {
         try (ZipOutputStream zout = new ZipOutputStream(new FileOutputStream(

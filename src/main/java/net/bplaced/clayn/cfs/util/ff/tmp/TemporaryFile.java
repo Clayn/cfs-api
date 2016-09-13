@@ -17,14 +17,14 @@ import net.bplaced.clayn.cfs.util.IOUtils;
 import net.bplaced.clayn.cfs.util.ff.FormatedFile;
 
 /**
- * A local temporary file holds data from a existing {@link SimpleFile file}. The
- * temporary file will be deleted after the JVM terminates. This can become usefull 
- * when you need a {@link File} but want to work with a {@link CFileSystem cfs}. 
- * By using this class you can get all the content of the file and store it temporary 
- * into your local filesystem. 
+ * A local temporary file holds data from a existing {@link SimpleFile file}.
+ * The temporary file will be deleted after the JVM terminates. This can become
+ * usefull when you need a {@link File} but want to work with a
+ * {@link CFileSystem cfs}. By using this class you can get all the content of
+ * the file and store it temporary into your local filesystem.
  *
  * @author Clayn <clayn_osmato@gmx.de>
- * @since 0.2
+ * @since 0.2.0
  */
 public class TemporaryFile extends FormatedFile
 {
