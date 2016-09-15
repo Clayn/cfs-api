@@ -182,8 +182,11 @@ public final class IOUtils
         {
             path = path + "/";
         }
-        zout.putNextEntry(new ZipEntry(path));
-        zout.closeEntry();
+        if(!dir.isRoot())
+        {
+            zout.putNextEntry(new ZipEntry(path));
+            zout.closeEntry();
+        }
         for (Directory sub : dir.listDirectories())
         {
             zipDir(zout, sub);

@@ -171,7 +171,7 @@ public class IOUtilsTest
         int dirC = 0;
         try (ZipFile zipFile = new ZipFile(zip))
         {
-            assertEquals(8, zipFile.size());
+            assertEquals(7, zipFile.size());
             Enumeration<? extends ZipEntry> enume = zipFile.entries();
             while (enume.hasMoreElements())
             {
@@ -189,8 +189,7 @@ public class IOUtilsTest
                 if (entry.isDirectory())
                 {
                     dirC++;
-                    assertTrue(name.startsWith("Sub") || name.startsWith(
-                            "Root"));
+                    assertTrue(name.startsWith("Sub"));
 
                     System.out.println(name);
                 } else
@@ -201,7 +200,7 @@ public class IOUtilsTest
                 }
             }
             assertEquals(4, fileC);
-            assertEquals(4, dirC);
+            assertEquals(3, dirC);
             assertTrue(zipFile.stream().map(ZipEntry::getName).anyMatch(
                     "Root/Sub2/"::equals));
             ZipEntry file1 = zipFile.getEntry("Root/Sub1/File1.txt");
@@ -226,7 +225,7 @@ public class IOUtilsTest
         IOUtils.backUpToZip(cfs, zip);
         try (ZipFile zFile = new ZipFile(zip))
         {
-            assertEquals(8, zFile.size());
+            assertEquals(7, zFile.size());
         }
     }
 
