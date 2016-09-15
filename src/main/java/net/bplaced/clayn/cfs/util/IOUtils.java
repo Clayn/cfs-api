@@ -5,9 +5,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 import net.bplaced.clayn.cfs.CFileSystem;
 import net.bplaced.clayn.cfs.Directory;
@@ -174,6 +176,50 @@ public final class IOUtils
             zout.flush();
         }
     }
+    
+    public static void extractFromZip(CFileSystem cfs,ZipFile backUp) throws IOException
+    {
+        extractFromZip(cfs, backUp, null);
+    }
+
+    public static void extractFromZip(CFileSystem cfs, ZipFile backUp,
+            String rootReplace) throws IOException
+    {
+        if (rootReplace != null)
+        {
+            rootReplace = rootReplace.endsWith("/") ? rootReplace : rootReplace + "/";
+        }
+        try (ZipFile zip = backUp)
+        {
+            Enumeration<? extends ZipEntry> entries = zip.entries();
+            while (entries.hasMoreElements())
+            {
+                ZipEntry entry = entries.nextElement();
+                String name = entry.getName();
+                if (rootReplace != null &&name.startsWith(rootReplace))
+                {
+                    if(name.equals(rootReplace))
+                    {
+                        continue;
+                    }
+                    name = name.substring(rootReplace.length());
+                }
+                if (entry.isDirectory())
+                {
+                    Directory dir = cfs.getDirectory(name);
+                    dir.mkDirs();
+                } else
+                {
+                    SimpleFile file = cfs.getFile(name);
+                    file.createSafe();
+                    try (InputStream in = zip.getInputStream(entry); OutputStream out = file.openWrite())
+                    {
+                        IOUtils.copy(in, out);
+                    }
+                }
+            }
+        }
+    }
 
     private static void zipDir(ZipOutputStream zout, Directory dir) throws IOException
     {
@@ -182,8 +228,11 @@ public final class IOUtils
         {
             path = path + "/";
         }
-        zout.putNextEntry(new ZipEntry(path));
-        zout.closeEntry();
+        if (!dir.isRoot())
+        {
+            zout.putNextEntry(new ZipEntry(path));
+            zout.closeEntry();
+        }
         for (Directory sub : dir.listDirectories())
         {
             zipDir(zout, sub);
