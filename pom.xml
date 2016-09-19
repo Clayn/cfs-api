@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.bplaced.clayn</groupId>
     <artifactId>cfs-api</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.3.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <build>
         <plugins>
@@ -32,6 +32,11 @@
                             <name>ext</name>
                             <placement>t</placement>
                             <head>This class does not necessary belongs to the project but was a quick solution. It may be removed to a separate project in further releases</head>
+                        </tag>
+                        <tag>
+                            <name>log</name>
+                            <placement>m</placement>
+                            <head>Logging Levels:</head>
                         </tag>
                     </tags>
                     <additionalparam>-Xdoclint:none</additionalparam>
