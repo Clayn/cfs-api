@@ -12,6 +12,10 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 import net.bplaced.clayn.cfs.Directory;
 import net.bplaced.clayn.cfs.SimpleFile;
+import net.bplaced.clayn.cfs.err.CFSException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.event.Level;
 
 /**
  * Utility class similar to {@link java.nio.file.Files Files} to provide similar
@@ -24,15 +28,18 @@ import net.bplaced.clayn.cfs.SimpleFile;
 public final class CFiles
 {
 
+    private static final Logger LOG=LoggerFactory.getLogger(CFiles.class);
     /**
      * Reads all lines from the given file. The bytes are interpreted using the
-     * Charset from the file returned by {@link SimpleFile#getCharset()}.
+     * Charset from the file returned by {@link SimpleFile#getCharset()}. If the 
+     * file doesn't exist, the returned list will be empty.
      *
      * @param sf the file to read from
      * @return a list with all lines read from the given file. Never
      * {@code null}.
      * @throws IOException if an I/O Exception occures
      * @see java.nio.file.Files#readAllLines(java.nio.file.Path)
+     * @log {@link Level#INFO}
      */
     public static List<String> readAllLines(SimpleFile sf) throws IOException
     {
@@ -45,6 +52,9 @@ public final class CFiles
                         Objects::nonNull).forEach(lines::add);
             }
         }
+        else if(LOG.isInfoEnabled()){
+            LOG.info("Attempt to read lines from a not existing file");
+        }
         return lines;
     }
 
@@ -54,9 +64,10 @@ public final class CFiles
      *
      * @param dir the directory which size will be calculated
      * @return the size of the directory
-     * @throws RuntimeException if an exception occures while listing the files
+     * @throws CFSException if an exception occures while listing the files
      * and directories.
      * @since 0.2.0
+     * @log {@link Level#WARN}
      */
     public static long getSize(Directory dir)
     {
@@ -72,6 +83,10 @@ public final class CFiles
                         return t.getSize();
                     } catch (IOException ex)
                     {
+                        if(LOG.isWarnEnabled())
+                        {
+                            LOG.warn("An error occured while getting the size of "+t, ex);
+                        }
                         return 0l;
                     }
         };
@@ -82,7 +97,7 @@ public final class CFiles
                     .mapToLong(Long::longValue).sum();
         } catch (IOException ex)
         {
-            throw new RuntimeException(ex);
+            throw new CFSException(ex);
         }
     }
 
@@ -91,7 +106,8 @@ public final class CFiles
      * reader uses the files charset.
      *
      * @param sf the file to read from
-     * @return a new reader to read from the file
+     * @return a new reader to read from the file or {@code null} if the file 
+     * doesn't exist.
      * @throws IOException if an I/O Exception occures during the creation of
      * the reader.
      * @see java.nio.file.Files#newBufferedReader(java.nio.file.Path)
