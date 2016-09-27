@@ -5,12 +5,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.Objects;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import net.bplaced.clayn.cfs.ext.functional.TryingFunction;
 import net.bplaced.clayn.cfs.util.Child;
 import net.bplaced.clayn.cfs.util.IOUtils;
 import net.bplaced.clayn.cfs.util.SizeUnit;
+import net.bplaced.clayn.cfs.util.Tuple;
 import net.bplaced.clayn.cfs.util.ff.Formatable;
 
 /**
@@ -80,19 +79,18 @@ public interface SimpleFile extends Child<Directory>, Formatable<SimpleFile>, De
      */
     public default IOStream open(OpeningType type) throws IOException
     {
-        ObjectProperty<InputStream> in = new SimpleObjectProperty<>();
-        ObjectProperty<OutputStream> out = new SimpleObjectProperty<>();
+        Tuple<InputStream,OutputStream> streams=new Tuple<>();
         switch (type)
         {
             case READ:
-                in.set(openRead());
+                streams.setFirst(openRead());
                 break;
             case WRITE:
-                out.set(openWrite());
+                streams.setSecond(openWrite());
                 break;
             case READ_WRITE:
-                in.set(openRead());
-                out.set(openWrite());
+                streams.setFirst(openRead());
+                streams.setSecond(openWrite());
                 break;
         }
         return new IOStream()
@@ -100,13 +98,13 @@ public interface SimpleFile extends Child<Directory>, Formatable<SimpleFile>, De
             @Override
             public InputStream getInput() throws IOException
             {
-                return in.get();
+                return streams.getFirst();
             }
 
             @Override
             public OutputStream getOutput() throws IOException
             {
-                return out.get();
+                return streams.getSecond();
             }
         };
     }

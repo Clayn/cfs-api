@@ -14,7 +14,6 @@ import java.util.Objects;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import javafx.util.Pair;
 import net.bplaced.clayn.cfs.CFileSystem;
 import net.bplaced.clayn.cfs.Directory;
 import net.bplaced.clayn.cfs.SimpleFile;
@@ -35,15 +34,15 @@ import static org.mockito.Mockito.*;
 public class IOUtilsTest
 {
 
-    private static final List<Pair<String, String>> testPaths = new ArrayList<>();
+    private static final List<Tuple<String, String>> testPaths = new ArrayList<>();
 
     @BeforeClass
     public static void setUpClass()
     {
         testPaths.addAll(Arrays.asList(
-                new Pair<>("/foo/bah", "foo/bah"),
-                new Pair<>("/foo//bah", "foo/bah"),
-                new Pair<>("foo/bah/hello world", "foo/bah/hello world")
+                new Tuple<>("/foo/bah", "foo/bah"),
+                new Tuple<>("/foo//bah", "foo/bah"),
+                new Tuple<>("foo/bah/hello world", "foo/bah/hello world")
         ));
     }
 
@@ -74,9 +73,9 @@ public class IOUtilsTest
 
     }
 
-    private void testPair(Pair<String, String> pair)
+    private void testPair(Tuple<String, String> pair)
     {
-        testPath(pair.getKey(), pair.getValue());
+        testPath(pair.getFirst(), pair.getSecond());
     }
 
     private void testPath(String path, String expResult)
