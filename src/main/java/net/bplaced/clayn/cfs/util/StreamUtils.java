@@ -1,7 +1,5 @@
 package net.bplaced.clayn.cfs.util;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
@@ -37,14 +35,14 @@ public final class StreamUtils
     public static <T> Stream<T> generateWhile(T first, UnaryOperator<T> next,
             Predicate<T> until)
     {
-        List<T> list = new ArrayList<>();
-        T val = first;
-        while (until.test(val))
+        return generateWhile(new TryingSupplier<T>()
         {
-            list.add(val);
-            val = next.apply(val);
-        }
-        return list.stream();
+            @Override
+            public T tryGet() throws Exception
+            {
+                return first;
+            }
+        }, next::apply, until::test);
     }
 
     public static <T> Stream<T> generateWhile(TryingSupplier<T> first,

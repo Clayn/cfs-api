@@ -14,7 +14,6 @@ import java.util.Objects;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import javafx.util.Pair;
 import net.bplaced.clayn.cfs.CFileSystem;
 import net.bplaced.clayn.cfs.Directory;
 import net.bplaced.clayn.cfs.SimpleFile;
@@ -35,15 +34,15 @@ import static org.mockito.Mockito.*;
 public class IOUtilsTest
 {
 
-    private static final List<Pair<String, String>> testPaths = new ArrayList<>();
+    private static final List<Tuple<String, String>> testPaths = new ArrayList<>();
 
     @BeforeClass
     public static void setUpClass()
     {
         testPaths.addAll(Arrays.asList(
-                new Pair<>("/foo/bah", "foo/bah"),
-                new Pair<>("/foo//bah", "foo/bah"),
-                new Pair<>("foo/bah/hello world", "foo/bah/hello world")
+                new Tuple<>("/foo/bah", "foo/bah"),
+                new Tuple<>("/foo//bah", "foo/bah"),
+                new Tuple<>("foo/bah/hello world", "foo/bah/hello world")
         ));
     }
 
@@ -74,9 +73,9 @@ public class IOUtilsTest
 
     }
 
-    private void testPair(Pair<String, String> pair)
+    private void testPair(Tuple<String, String> pair)
     {
-        testPath(pair.getKey(), pair.getValue());
+        testPath(pair.getFirst(), pair.getSecond());
     }
 
     private void testPath(String path, String expResult)
@@ -117,7 +116,7 @@ public class IOUtilsTest
         assertArrayEquals(data.getBytes(cs), result);
         assertEquals(data, new String(result, cs));
     }
-
+    
     /**
      * Test of copy method, of class IOUtils.
      */
@@ -171,7 +170,7 @@ public class IOUtilsTest
         int dirC = 0;
         try (ZipFile zipFile = new ZipFile(zip))
         {
-            assertEquals(8, zipFile.size());
+            assertEquals(7, zipFile.size());
             Enumeration<? extends ZipEntry> enume = zipFile.entries();
             while (enume.hasMoreElements())
             {
@@ -189,8 +188,7 @@ public class IOUtilsTest
                 if (entry.isDirectory())
                 {
                     dirC++;
-                    assertTrue(name.startsWith("Sub") || name.startsWith(
-                            "Root"));
+                    assertTrue(name.startsWith("Sub"));
 
                     System.out.println(name);
                 } else
@@ -201,7 +199,7 @@ public class IOUtilsTest
                 }
             }
             assertEquals(4, fileC);
-            assertEquals(4, dirC);
+            assertEquals(3, dirC);
             assertTrue(zipFile.stream().map(ZipEntry::getName).anyMatch(
                     "Root/Sub2/"::equals));
             ZipEntry file1 = zipFile.getEntry("Root/Sub1/File1.txt");
@@ -226,7 +224,7 @@ public class IOUtilsTest
         IOUtils.backUpToZip(cfs, zip);
         try (ZipFile zFile = new ZipFile(zip))
         {
-            assertEquals(8, zFile.size());
+            assertEquals(7, zFile.size());
         }
     }
 
@@ -251,5 +249,26 @@ public class IOUtilsTest
         assertEquals(0,
                 cfs.getRoot().changeDirectory("Sub1").listDirectories().size());
         assertEquals(2, cfs.getRoot().changeDirectory("Sub2").listFiles().size());
+    }
+    
+    @Test
+    public void testMove() throws IOException
+    {
+        SimpleFile from=mock(SimpleFile.class);
+        SimpleFile to=mock(SimpleFile.class);
+        
+        when(from.exists()).thenReturn(true);
+        when(to.exists()).thenReturn(true);
+        when(from.openRead()).thenReturn(new ByteArrayInputStream(new byte[128]));
+        when(to.openWrite()).thenReturn(new ByteArrayOutputStream());
+        
+        IOUtils.move(from, to);
+        
+        verify(to,times(1)).createSafe();
+        verify(from,times(1)).delete();
+        verify(from,times(1)).openRead();
+        verify(to,times(1)).openWrite();
+        
+        
     }
 }

@@ -11,10 +11,9 @@ import net.bplaced.clayn.cfs.FileSettings;
 import net.bplaced.clayn.cfs.SimpleFile;
 
 /**
- *
+ * 
  * @author Clayn
  * @since 0.1
- * @version $Revision: 318 $
  * @development
  */
 public class TemporaryFileSystem implements Closeable, CFileSystem
@@ -113,5 +112,5 @@ public class TemporaryFileSystem implements Closeable, CFileSystem
     {
         return workingFileSystem.getFile(path);
     }
-
+  
 }
