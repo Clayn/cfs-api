@@ -13,7 +13,7 @@ Here are some of the features of the CFS:
 
 One reason for creating the project was to reduce effort needed for handling files. 
 For example if you want to create a file (including parent directories) you would do something like this:
-````
+````java
 File f=new File("somePath/MyFile.txt");
 if(!f.exists()) {
 	File parent=f.getParent();
@@ -31,7 +31,7 @@ if(!f.exists()) {
 of course you could put this in a method but still you need it. 
 
 Using the CFS you could do the same thing just with:
-````
+````java
 CFileSystem cfs=new FancyFileSystem(); //Or get it from somewhere else
 Directory dir=cfs.getDirectory("SomeDirectory");
 SimpleFile file=dir.getFile("MyFile.txt");
@@ -42,7 +42,7 @@ file.createSafe(); //If you want the file created and go on if it exists already
 Additonal the CFS provides a simple API for watching directories for changes. This is an optional feature and may not be available in all implementations. 
 
 This is the code to watch a directory using java.nio (taken from [Docs Oracle](https://docs.oracle.com/javase/tutorial/essential/io/notification.html):
-````
+````java
 for (;;) {
 
     // wait for key to be signaled
@@ -105,7 +105,7 @@ for (;;) {
 ````
 
 Using a CFS implementation you get this code:
-````
+````java
 CFileSystem cfs=new FancyFileSystem();
 if(cfs.isActiveDirectorySupported()) {
 	ActiveDirectory aDir=cfs.getActiveDirectory("SomePath");
