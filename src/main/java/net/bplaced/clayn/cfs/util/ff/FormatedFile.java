@@ -17,6 +17,10 @@ import org.slf4j.LoggerFactory;
 public abstract class FormatedFile
 {
 
+    /**
+     * A logger provided for subclasses. There is no need to use this logger 
+     * over your own one.
+     */
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**

@@ -22,5 +22,10 @@ public class FileFormats
      */
     public static final TryingFunction<SimpleFile, CSVFile> CSV = CSVFile::new;
 
+    /**
+     * The constant format for {@link TemporaryFile temporary} file.
+     * 
+     * @since 0.2.0
+     */
     public static final TryingFunction<SimpleFile, TemporaryFile> TMP = TemporaryFile::new;
 }
