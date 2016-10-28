@@ -192,4 +192,19 @@ public interface Directory extends Child<Directory>, Deletable
         }
         return false;
     }
+    
+    public default SimpleFile resolveFile(String path) throws IOException
+    {
+        if(!path.contains("/"))
+        {
+            return getFile(path);
+        }
+        else
+        {
+            String dir=path.substring(0, path.lastIndexOf("/"));
+            String file=path.substring(path.lastIndexOf("/")+1);
+            Directory parent=changeDirectory(dir);
+            return parent.getFile(file);
+        }
+    }
 }

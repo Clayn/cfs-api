@@ -112,5 +112,11 @@ public class TemporaryFileSystem implements Closeable, CFileSystem
     {
         return workingFileSystem.getFile(path);
     }
+
+    @Override
+    public CFileSystem subFileSystem(String dir) throws IOException
+    {
+        return workingFileSystem.subFileSystem(dir);
+    }
   
 }
