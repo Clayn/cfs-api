@@ -149,4 +149,6 @@ public interface CFileSystem
             return getRoot().getFile(path);
         }
     }
+    
+    public CFileSystem subFileSystem(String dir) throws IOException;
 }
