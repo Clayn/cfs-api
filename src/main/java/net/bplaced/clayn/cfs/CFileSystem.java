@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2016 Clayn <clayn_osmato@gmx.de>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package net.bplaced.clayn.cfs;
 
 import java.io.IOException;
@@ -150,5 +166,16 @@ public interface CFileSystem
         }
     }
     
+    /**
+     * Creates a subfilesystem from the current one with the given path as root. 
+     * The created filesystem uses the same data as the current one. This means 
+     * the 'parent' filesystem can access all files from the sub filesystem. 
+     * 
+     * @param dir the new root directory
+     * @return a new filesystem with the given directory as root
+     * @throws IOException if an I/O Exception occures e.g. the given directory 
+     * can't be found
+     * @since 0.3.0
+     */
     public CFileSystem subFileSystem(String dir) throws IOException;
 }

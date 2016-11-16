@@ -31,6 +31,7 @@ import net.bplaced.clayn.cfs.util.SizeUnit;
  * Due to that behaviour links are 'followed' automatic.
  *
  * @author Clayn <clayn_osmato@gmx.de>
+ * @since 0.3.0
  */
 public class Link implements SimpleFile
 {

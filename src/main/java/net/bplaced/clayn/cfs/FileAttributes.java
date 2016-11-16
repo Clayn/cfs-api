@@ -17,8 +17,10 @@
 package net.bplaced.clayn.cfs;
 
 /**
- *
+ * The fileattributes provide access to different attributes for a file. These 
+ * may change for a file.
  * @author Clayn <clayn_osmato@gmx.de>
+ * @since 0.3.0
  */
 public interface FileAttributes
 {
