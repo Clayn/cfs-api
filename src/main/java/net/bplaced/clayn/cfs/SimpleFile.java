@@ -253,6 +253,8 @@ public interface SimpleFile extends Child<Directory>, Formatable<SimpleFile>, De
         return false;
     }
     
+    public String getPath();
+    
     public default FileAttributes getFileAttributes()
     {
         return SimpleFileAttributes.defaultAttributes();

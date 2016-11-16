@@ -138,4 +138,10 @@ public class Link implements SimpleFile
         return linkedFile.toString();
     }
 
+    @Override
+    public String getPath()
+    {
+        return linkedFile.getPath();
+    }
+
 }
