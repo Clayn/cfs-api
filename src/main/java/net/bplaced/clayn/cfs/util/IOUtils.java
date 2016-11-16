@@ -55,7 +55,7 @@ public final class IOUtils
     /**
      * Sets the buffer size for reading operations used e.g. in
      * {@link #copy(java.io.InputStream, java.io.OutputStream)}. If the given
-     * value is {@code <= 0} the buffer size will be untoched. Changing the
+     * value is {@code <= 0} the buffer size will be untouched. Changing the
      * buffer size may increase the performance but also can decrease it so use
      * it only if you have to.
      *

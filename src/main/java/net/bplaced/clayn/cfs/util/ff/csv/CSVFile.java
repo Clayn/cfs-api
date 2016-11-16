@@ -26,8 +26,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.regex.Pattern;
 import net.bplaced.clayn.cfs.SimpleFile;
+import net.bplaced.clayn.cfs.err.CFSException;
 import net.bplaced.clayn.cfs.util.ff.FormatedFile;
 
 /**
@@ -37,7 +39,7 @@ import net.bplaced.clayn.cfs.util.ff.FormatedFile;
  * defines which one will be used for the file.
  *
  * @author Clayn
- * @since 0.2.0 * @version $Revision: 318 $
+ * @since 0.2.0 
  */
 public class CSVFile extends FormatedFile implements Closeable
 {
@@ -57,7 +59,8 @@ public class CSVFile extends FormatedFile implements Closeable
      * other action needed.
      *
      * @param file the file to interpret
-     * @throws RuntimeException if an I/O Exception occures
+     * @throws IOException if an I/O Exception occures
+     * @throws CFSException if no separation cahracter was found
      * @since 0.2.0
      */
     public CSVFile(SimpleFile file) throws IOException
@@ -67,7 +70,7 @@ public class CSVFile extends FormatedFile implements Closeable
         reader = new BufferedReader(new InputStreamReader(file.openRead(),
                 file.getCharset()));
         header = readHeaders();
-        Objects.requireNonNull(separation);
+        Optional.ofNullable(separation).orElseThrow(CFSException::new);
     }
 
     private String[] readHeaders() throws IOException
