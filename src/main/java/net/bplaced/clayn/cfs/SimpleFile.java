@@ -286,4 +286,75 @@ public interface SimpleFile extends Child<Directory>, Formatable<SimpleFile>, De
     {
         return SimpleFileAttributes.defaultAttributes();
     }
+    
+    /**
+     * Creates a read only file version from the given file. The returned file will 
+     * only allow operations that dont risk the files content. This means 
+     * you cant delete or write to the file but read from it. Creating is also 
+     * allowed to be sure and a file to read from should exist though. However 
+     * this doesn't prevent the originial file to be deleted somewhere else.
+     * @param orig the original file
+     * @return a read only file representing the given one
+     * @since 0.3.0
+     */
+    public static SimpleFile readOnly(SimpleFile orig)
+    {
+        SimpleFile self=orig;
+        return new SimpleFile()
+        {
+            @Override
+            public boolean exists()
+            {
+                return self.exists();
+            }
+
+            @Override
+            public void create() throws IOException
+            {
+                throw new UnsupportedOperationException("Read only files dont support this");
+            }
+
+            @Override
+            public void delete() throws IOException
+            {
+                throw new UnsupportedOperationException("Read only files dont support this");
+            }
+
+            @Override
+            public InputStream openRead() throws IOException
+            {
+                return self.openRead();
+            }
+
+            @Override
+            public OutputStream openWrite() throws IOException
+            {
+                throw new UnsupportedOperationException("Read only files dont support this");
+            }
+
+            @Override
+            public String getName()
+            {
+                return self.getName();
+            }
+
+            @Override
+            public long getSize() throws IOException
+            {
+                return self.getSize();
+            }
+
+            @Override
+            public String getPath()
+            {
+                return self.getPath();
+            }
+
+            @Override
+            public Directory getParent()
+            {
+                throw new UnsupportedOperationException("Read only files dont support this");
+            }
+        };
+    }
 }
