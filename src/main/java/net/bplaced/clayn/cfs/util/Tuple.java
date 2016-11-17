@@ -17,20 +17,28 @@
 package net.bplaced.clayn.cfs.util;
 
 /**
- *
+ * Utility class that holds to values of the same or different types. 
  * @author Clayn <clayn_osmato@gmx.de>
- * @param <T>
- * @param <U>
+ * @param <T> the type for the first value
+ * @param <U> the type for the second value
  */
 public final class Tuple<T,U>
 {
     private T first;
     private U second;
 
+    /**
+     * Creates a new empty tuple
+     */
     public Tuple()
     {
     }
 
+    /**
+     * Creates a new tuple with the given values.
+     * @param first the first value to store
+     * @param second the second value to store
+     */
     public Tuple(T first, U second)
     {
         this.first = first;
@@ -47,11 +55,19 @@ public final class Tuple<T,U>
         this.second = second;
     }
 
+    /**
+     * Returns the first value. May be {@code null}
+     * @return the first value
+     */
     public T getFirst()
     {
         return first;
     }
 
+    /**
+     * Returns the second value. May be {@code null}
+     * @return the second value
+     */
     public U getSecond()
     {
         return second;

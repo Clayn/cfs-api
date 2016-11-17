@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2016 Clayn <clayn_osmato@gmx.de>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package net.bplaced.clayn.cfs.util;
 
 import java.util.Arrays;
@@ -386,7 +402,7 @@ public enum SizeUnit
         @Override
         public double toExaByte(double val)
         {
-            return MOD;
+            return val;
         }
 
         @Override
@@ -509,6 +525,13 @@ public enum SizeUnit
 
     private static final double MOD = 1000.0;
 
+    /**
+     * Creates a string from the given byte value that is readable by humans. 
+     * This method only shows decimal values. E.g. {@code 1030} will be 
+     * represented as {@code 1 kb 30 b} and {@code 4015032} as {@code 4 Mb 15 kb 32b} 
+     * @param bVal the byte value to convert
+     * @return a human readable representation of the given byte value
+     */
     public static String toReadableString(long bVal)
     {
         if (bVal < 0)

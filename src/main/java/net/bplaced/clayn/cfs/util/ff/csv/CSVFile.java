@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2016 Clayn <clayn_osmato@gmx.de>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package net.bplaced.clayn.cfs.util.ff.csv;
 
 import java.io.BufferedReader;
@@ -10,8 +26,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.regex.Pattern;
 import net.bplaced.clayn.cfs.SimpleFile;
+import net.bplaced.clayn.cfs.err.CFSException;
 import net.bplaced.clayn.cfs.util.ff.FormatedFile;
 
 /**
@@ -21,7 +39,7 @@ import net.bplaced.clayn.cfs.util.ff.FormatedFile;
  * defines which one will be used for the file.
  *
  * @author Clayn
- * @since 0.2.0 * @version $Revision: 318 $
+ * @since 0.2.0 
  */
 public class CSVFile extends FormatedFile implements Closeable
 {
@@ -41,7 +59,8 @@ public class CSVFile extends FormatedFile implements Closeable
      * other action needed.
      *
      * @param file the file to interpret
-     * @throws RuntimeException if an I/O Exception occures
+     * @throws IOException if an I/O Exception occures
+     * @throws CFSException if no separation cahracter was found
      * @since 0.2.0
      */
     public CSVFile(SimpleFile file) throws IOException
@@ -51,7 +70,7 @@ public class CSVFile extends FormatedFile implements Closeable
         reader = new BufferedReader(new InputStreamReader(file.openRead(),
                 file.getCharset()));
         header = readHeaders();
-        Objects.requireNonNull(separation);
+        Optional.ofNullable(separation).orElseThrow(CFSException::new);
     }
 
     private String[] readHeaders() throws IOException

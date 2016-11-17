@@ -17,8 +17,12 @@
 package net.bplaced.clayn.cfs;
 
 /**
- *
+ * Simple implementations for the {@link FileAttributes} that holds the 
+ * necessary values as fields. Subclasses may change these values and have no need 
+ * to implement the accessing methods. The provided default attributes are always 
+ * {@code -1}
  * @author Clayn <clayn_osmato@gmx.de>
+ * @since 0.3.0
  */
 public class SimpleFileAttributes implements FileAttributes
 {
