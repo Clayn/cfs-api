@@ -320,11 +320,11 @@ public class SizeUnitTest
         expResult = val / 1000.0;
         result = instance.toExaByte(val);
         assertEquals(expResult, result, 0.1);
-        
-        instance=EXA_BYTE;
-        expResult=val;
-        result=instance.toExaByte(val);
-        assertEquals(expResult, result,0.1);
+
+        instance = EXA_BYTE;
+        expResult = val;
+        result = instance.toExaByte(val);
+        assertEquals(expResult, result, 0.1);
     }
 
     /**

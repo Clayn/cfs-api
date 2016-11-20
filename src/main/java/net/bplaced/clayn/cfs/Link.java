@@ -28,9 +28,9 @@ import net.bplaced.clayn.cfs.util.SizeUnit;
  * A link represents a file without beeing a real file. A link works just like a
  * real file but only delegates the calls to the linked file. This means reading
  * and writing operations are made on the real file instead of the link file.
- * Due to that behaviour links are 'followed' automatic. Basically this 
- * class serves as fill without the needed space or management work a real file 
- * would need. 
+ * Due to that behaviour links are 'followed' automatic. Basically this class
+ * serves as fill without the needed space or management work a real file would
+ * need.
  *
  * @author Clayn <clayn_osmato@gmx.de>
  * @since 0.3.0
@@ -41,14 +41,16 @@ public class Link implements SimpleFile
     private final SimpleFile linkedFile;
 
     /**
-     * Creates a new link to the given file. One file can have more than one 
-     * link. 
+     * Creates a new link to the given file. One file can have more than one
+     * link.
+     *
      * @param linkedFile the file to be linkend. Musn't be {@code null}.
      * @since 0.3.0
      */
     public Link(SimpleFile linkedFile)
     {
-        this.linkedFile = Objects.requireNonNull(linkedFile, "Can't create link for 'null'");
+        this.linkedFile = Objects.requireNonNull(linkedFile,
+                "Can't create link for 'null'");
     }
 
     @Override

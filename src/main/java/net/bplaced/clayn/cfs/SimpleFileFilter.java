@@ -79,7 +79,7 @@ public interface SimpleFileFilter extends Predicate<SimpleFile>
      * extension
      * @see #all()
      * @see #nameFilter(java.lang.String)
-     * @see String#endsWith(java.lang.String) 
+     * @see String#endsWith(java.lang.String)
      * @since 0.1
      */
     public static SimpleFileFilter extensionFilter(String ext)
@@ -97,15 +97,17 @@ public interface SimpleFileFilter extends Predicate<SimpleFile>
      * given name
      * @see #all()
      * @see #extensionFilter(java.lang.String)
-     * @see String#contains(java.lang.CharSequence) 
+     * @see String#contains(java.lang.CharSequence)
      * @since 0.1
      */
     public static SimpleFileFilter nameFilter(String name)
     {
-        return (SimpleFile sf) ->
-        {
-            String fName=sf.getName();
-            return fName.substring(0, fName.lastIndexOf(".")).contains(name);
+        return (SimpleFile sf)
+                -> 
+                {
+                    String fName = sf.getName();
+                    return fName.substring(0, fName.lastIndexOf(".")).contains(
+                            name);
         };
     }
 }

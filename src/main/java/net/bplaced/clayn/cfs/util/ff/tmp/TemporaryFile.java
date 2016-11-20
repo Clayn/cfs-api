@@ -57,6 +57,7 @@ public class TemporaryFile extends FormatedFile
 
     /**
      * Returns the temporary file that was created in the local filesystem.
+     *
      * @return the temporary created file.
      * @since 0.2.0
      */

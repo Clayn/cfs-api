@@ -17,32 +17,37 @@
 package net.bplaced.clayn.cfs;
 
 /**
- * The fileattributes provide access to different attributes for a file. These 
+ * The fileattributes provide access to different attributes for a file. These
  * may change for a file.
+ *
  * @author Clayn <clayn_osmato@gmx.de>
  * @since 0.3.0
  */
 public interface FileAttributes
 {
+
     /**
-     * Returns the timestamp of the last time when the file was modified. A file 
+     * Returns the timestamp of the last time when the file was modified. A file
      * is modified when something was written to it.
+     *
      * @return the last time the file was modified
      * @since 0.3.0
      */
     public long lastModified();
-    
+
     /**
-     * Returns the timestamp of the time when the file was created. This time 
-     * should only change when the file was deleted and created again. 
+     * Returns the timestamp of the time when the file was created. This time
+     * should only change when the file was deleted and created again.
+     *
      * @return the time the file was created
      * @since 0.3.0
      */
     public long creationTime();
-    
+
     /**
-     * Returns the timestamp of the last time when the file was used. Using a file 
-     * means it was opened for reading.
+     * Returns the timestamp of the last time when the file was used. Using a
+     * file means it was opened for reading.
+     *
      * @return the last time the file was used
      * @since 0.3.0
      */

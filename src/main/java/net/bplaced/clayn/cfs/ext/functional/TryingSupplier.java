@@ -33,9 +33,10 @@ public interface TryingSupplier<T> extends Supplier<T>
 
     /**
      * Tries to get the result. This may throw an exception.
+     *
      * @return a result if it doesn't fail
      * @throws Exception if the supplier fails
-     * @see #get() 
+     * @see #get()
      * @since 0.1.0
      */
     public T tryGet() throws Exception;

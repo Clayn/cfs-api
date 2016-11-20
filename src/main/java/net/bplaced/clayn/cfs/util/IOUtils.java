@@ -41,9 +41,8 @@ import org.slf4j.event.Level;
 public final class IOUtils
 {
 
-    private static final Logger LOG = LoggerFactory.getLogger(IOUtils.class.getName());
-    
-    
+    private static final Logger LOG = LoggerFactory.getLogger(
+            IOUtils.class.getName());
 
     private static int BUFFER_SIZE = 1024;
 
@@ -120,7 +119,7 @@ public final class IOUtils
      */
     public static void copy(SimpleFile from, SimpleFile to) throws IOException
     {
-        if(LOG.isInfoEnabled())
+        if (LOG.isInfoEnabled())
         {
             LOG.info("Copy from file {0} to file {1}", from, to);
         }
@@ -143,8 +142,10 @@ public final class IOUtils
      * interrupted
      * @see #copy(net.bplaced.clayn.cfs.SimpleFile,
      * net.bplaced.clayn.cfs.SimpleFile)
-     * @see #copy(net.bplaced.clayn.cfs.CFileSystem, net.bplaced.clayn.cfs.CFileSystem) 
-     * @see #copy(net.bplaced.clayn.cfs.Directory, net.bplaced.clayn.cfs.Directory) 
+     * @see #copy(net.bplaced.clayn.cfs.CFileSystem,
+     * net.bplaced.clayn.cfs.CFileSystem)
+     * @see #copy(net.bplaced.clayn.cfs.Directory,
+     * net.bplaced.clayn.cfs.Directory)
      * @since 0.1
      * @log {@link Level#ERROR}
      */
@@ -166,7 +167,7 @@ public final class IOUtils
             out.flush();
         } catch (InterruptedException ex)
         {
-            if(LOG.isErrorEnabled())
+            if (LOG.isErrorEnabled())
             {
                 LOG.error("An error occured during the copy process", ex);
             }
@@ -196,7 +197,8 @@ public final class IOUtils
      * @param backFile the outputfile for the backup
      * @throws IOException if an I/O Exception occures
      * @since 0.2.0
-     * @see #extractFromZip(net.bplaced.clayn.cfs.CFileSystem, java.util.zip.ZipFile) 
+     * @see #extractFromZip(net.bplaced.clayn.cfs.CFileSystem,
+     * java.util.zip.ZipFile)
      */
     public static void backUpToZip(CFileSystem cfs, File backFile) throws IOException
     {
@@ -208,18 +210,19 @@ public final class IOUtils
             zout.flush();
         }
     }
-    
+
     /**
-     * Extracts the content from the given backup file into the filesystem. 
-     * This will overwrite files with the same path that currently exist in the 
+     * Extracts the content from the given backup file into the filesystem. This
+     * will overwrite files with the same path that currently exist in the
      * filesystem.
+     *
      * @param cfs the filesystem the content gets extracted to
      * @param backUp the backup to extract
      * @throws IOException if an I/O Exception occures
      * @since 0.2.0
-     * @see #backUpToZip(net.bplaced.clayn.cfs.CFileSystem, java.io.File) 
+     * @see #backUpToZip(net.bplaced.clayn.cfs.CFileSystem, java.io.File)
      */
-    public static void extractFromZip(CFileSystem cfs,ZipFile backUp) throws IOException
+    public static void extractFromZip(CFileSystem cfs, ZipFile backUp) throws IOException
     {
         extractFromZip(cfs, backUp, null);
     }
@@ -238,9 +241,9 @@ public final class IOUtils
             {
                 ZipEntry entry = entries.nextElement();
                 String name = entry.getName();
-                if (rootReplace != null &&name.startsWith(rootReplace))
+                if (rootReplace != null && name.startsWith(rootReplace))
                 {
-                    if(name.equals(rootReplace))
+                    if (name.equals(rootReplace))
                     {
                         continue;
                     }
@@ -295,16 +298,17 @@ public final class IOUtils
             zout.closeEntry();
         }
     }
-    
+
     /**
-     * Moves a file from it's currten location to the new one. If the destination 
-     * file already exists, it will be overwritten. The file that was moved will 
-     * be deleted afterwards.
-     * 
+     * Moves a file from it's currten location to the new one. If the
+     * destination file already exists, it will be overwritten. The file that
+     * was moved will be deleted afterwards.
+     *
      * @param from the file that will be moved
      * @param to the destination for the new file
      * @throws IOException if an I/O Exception occures
-     * @see #copy(net.bplaced.clayn.cfs.SimpleFile, net.bplaced.clayn.cfs.SimpleFile) 
+     * @see #copy(net.bplaced.clayn.cfs.SimpleFile,
+     * net.bplaced.clayn.cfs.SimpleFile)
      * @since 0.3.0
      */
     public static void move(SimpleFile from, SimpleFile to) throws IOException
@@ -313,50 +317,57 @@ public final class IOUtils
         copy(from, to);
         from.delete();
     }
-    
+
     /**
-     * Copies the complete source filesystem to the destination. This will overwrite 
-     * all files in the destination filesystem that are available in the source one. 
-     * After copying all files from the source will be available in the destination.
+     * Copies the complete source filesystem to the destination. This will
+     * overwrite all files in the destination filesystem that are available in
+     * the source one. After copying all files from the source will be available
+     * in the destination.
+     *
      * @param from the filesystem to copy from
      * @param to the filesystem to copy to
      * @throws IOException if an I/O Exception occures
-     * @see #copy(net.bplaced.clayn.cfs.Directory, net.bplaced.clayn.cfs.Directory) 
-     * @see #copy(java.io.InputStream, java.io.OutputStream) 
-     * @see #copy(net.bplaced.clayn.cfs.SimpleFile, net.bplaced.clayn.cfs.SimpleFile) 
+     * @see #copy(net.bplaced.clayn.cfs.Directory,
+     * net.bplaced.clayn.cfs.Directory)
+     * @see #copy(java.io.InputStream, java.io.OutputStream)
+     * @see #copy(net.bplaced.clayn.cfs.SimpleFile,
+     * net.bplaced.clayn.cfs.SimpleFile)
      */
     public static void copy(CFileSystem from, CFileSystem to) throws IOException
     {
-        Directory fRoot=from.getRoot();
-        Directory tRoot=to.getRoot();
+        Directory fRoot = from.getRoot();
+        Directory tRoot = to.getRoot();
         copy(fRoot, tRoot);
     }
-    
+
     /**
-     * Copies all content from the source directory to the destination directory. 
-     * This copies all directories and files recursive.
+     * Copies all content from the source directory to the destination
+     * directory. This copies all directories and files recursive.
+     *
      * @param from the directory to copy the content from
      * @param to the directory to copy the content to
      * @throws IOException if an I/O Exception occurs.
      * @since 0.3.0
-     * @see #copy(net.bplaced.clayn.cfs.CFileSystem, net.bplaced.clayn.cfs.CFileSystem) 
-     * @see #copy(java.io.InputStream, java.io.OutputStream) 
-     * @see #copy(net.bplaced.clayn.cfs.SimpleFile, net.bplaced.clayn.cfs.SimpleFile) 
+     * @see #copy(net.bplaced.clayn.cfs.CFileSystem,
+     * net.bplaced.clayn.cfs.CFileSystem)
+     * @see #copy(java.io.InputStream, java.io.OutputStream)
+     * @see #copy(net.bplaced.clayn.cfs.SimpleFile,
+     * net.bplaced.clayn.cfs.SimpleFile)
      */
     public static void copy(Directory from, Directory to) throws IOException
     {
-        for(Directory dir:from.listDirectories())
+        for (Directory dir : from.listDirectories())
         {
             Directory tDir = to.changeDirectory(dir.getName());
-            if(!tDir.exists())
+            if (!tDir.exists())
             {
                 tDir.mkDirs();
             }
             copy(dir, tDir);
         }
-        for(SimpleFile file:from.listFiles())
+        for (SimpleFile file : from.listFiles())
         {
-            SimpleFile tFile=to.getFile(file.getName());
+            SimpleFile tFile = to.getFile(file.getName());
             copy(file, tFile);
         }
     }

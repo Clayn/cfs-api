@@ -165,15 +165,15 @@ public interface CFileSystem
             return getRoot().getFile(path);
         }
     }
-    
+
     /**
-     * Creates a subfilesystem from the current one with the given path as root. 
-     * The created filesystem uses the same data as the current one. This means 
-     * the 'parent' filesystem can access all files from the sub filesystem. 
-     * 
+     * Creates a subfilesystem from the current one with the given path as root.
+     * The created filesystem uses the same data as the current one. This means
+     * the 'parent' filesystem can access all files from the sub filesystem.
+     *
      * @param dir the new root directory
      * @return a new filesystem with the given directory as root
-     * @throws IOException if an I/O Exception occures e.g. the given directory 
+     * @throws IOException if an I/O Exception occures e.g. the given directory
      * can't be found
      * @since 0.3.0
      */

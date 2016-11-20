@@ -32,7 +32,7 @@ public interface TryingPredicate<T> extends Predicate<T>
 {
 
     /**
-     * Tries to evaluate this predicate on the given argument. This may throw an 
+     * Tries to evaluate this predicate on the given argument. This may throw an
      * exception.
      *
      * @param val the input argument

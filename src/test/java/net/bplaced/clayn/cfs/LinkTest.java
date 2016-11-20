@@ -32,26 +32,26 @@ import static org.mockito.Mockito.*;
  */
 public class LinkTest
 {
-    
+
     public LinkTest()
     {
     }
-    
+
     @BeforeClass
     public static void setUpClass()
     {
     }
-    
+
     @AfterClass
     public static void tearDownClass()
     {
     }
-    
+
     @Before
     public void setUp()
     {
     }
-    
+
     @After
     public void tearDown()
     {
@@ -65,15 +65,15 @@ public class LinkTest
     {
         System.out.println("exists");
         Link instance = null;
-        SimpleFile orig=getFile();
-        instance=new Link(orig);
-        
-        when(orig.exists()).thenReturn(false, true,false);
-        
+        SimpleFile orig = getFile();
+        instance = new Link(orig);
+
+        when(orig.exists()).thenReturn(false, true, false);
+
         assertFalse(instance.exists());
         assertTrue(instance.exists());
         assertFalse(instance.exists());
-        
+
         verify(orig, times(3)).exists();
     }
 
@@ -85,13 +85,13 @@ public class LinkTest
     {
         System.out.println("create");
         Link instance = null;
-        SimpleFile orig=getFile();
+        SimpleFile orig = getFile();
         doNothing().when(orig).create();
-        instance=new Link(orig);
+        instance = new Link(orig);
         instance.create();
-        
+
         verify(orig, times(1)).create();
-        
+
     }
 
     /**
@@ -102,11 +102,11 @@ public class LinkTest
     {
         System.out.println("createSafe");
         Link instance = null;
-        SimpleFile orig=getFile();
+        SimpleFile orig = getFile();
         doNothing().when(orig).createSafe();
-        instance=new Link(orig);
+        instance = new Link(orig);
         instance.createSafe();
-        
+
         verify(orig, times(1)).createSafe();
     }
 
@@ -118,16 +118,17 @@ public class LinkTest
     {
         System.out.println("delete");
         Link instance = null;
-        SimpleFile orig=getFile();
-        instance=new Link(orig);
+        SimpleFile orig = getFile();
+        instance = new Link(orig);
         when(orig.exists()).thenReturn(true, false);
         doNothing().when(orig).delete();
         assertTrue(instance.exists());
         instance.delete();
         assertFalse(instance.exists());
-        
+
         verify(orig, atLeast(1)).delete();
     }
+
     /**
      * Test of openRead method, of class Link.
      */
@@ -136,11 +137,11 @@ public class LinkTest
     {
         System.out.println("openRead");
         Link instance = null;
-        SimpleFile orig=getFile();
+        SimpleFile orig = getFile();
         when(orig.openRead()).thenReturn(null);
-        instance=new Link(orig);
+        instance = new Link(orig);
         instance.openRead();
-        
+
         verify(orig, times(1)).openRead();
     }
 
@@ -152,11 +153,11 @@ public class LinkTest
     {
         System.out.println("openWrite");
         Link instance = null;
-        SimpleFile orig=getFile();
+        SimpleFile orig = getFile();
         when(orig.openWrite()).thenReturn(null);
-        instance=new Link(orig);
+        instance = new Link(orig);
         instance.openWrite();
-        
+
         verify(orig, times(1)).openWrite();
     }
 
@@ -169,9 +170,9 @@ public class LinkTest
         System.out.println("getName");
         Link instance = null;
         String expResult = "Test.txt";
-        
-        SimpleFile orig=getFile();
-        instance=new Link(orig);
+
+        SimpleFile orig = getFile();
+        instance = new Link(orig);
         when(orig.getName()).thenReturn(expResult);
         assertEquals(expResult, instance.getName());
         verify(orig, atLeast(1)).getName();
@@ -181,7 +182,7 @@ public class LinkTest
     {
         return mock(SimpleFile.class);
     }
-    
+
     /**
      * Test of getSize method, of class Link.
      */
@@ -190,11 +191,14 @@ public class LinkTest
     {
         System.out.println("getSize");
         Link instance;
-        SimpleFile orig=mock(SimpleFile.class);
-        instance=new Link(orig);
-        long [] results=new long[]{1l,2l,3l,4l,5l};
-        when(orig.getSize()).thenReturn(1l, 2l,3l,4l,5l);
-        for(int i=0;i<results.length;++i)
+        SimpleFile orig = mock(SimpleFile.class);
+        instance = new Link(orig);
+        long[] results = new long[]
+        {
+            1l, 2l, 3l, 4l, 5l
+        };
+        when(orig.getSize()).thenReturn(1l, 2l, 3l, 4l, 5l);
+        for (int i = 0; i < results.length; ++i)
         {
             assertEquals(results[i], instance.getSize());
         }
@@ -209,18 +213,18 @@ public class LinkTest
     {
         System.out.println("getSize");
         Link instance = null;
-        SimpleFile orig=mock(SimpleFile.class);
+        SimpleFile orig = mock(SimpleFile.class);
         when(orig.getSize(SizeUnit.BYTE)).thenReturn(1000.0);
         when(orig.getSize(SizeUnit.KILO_BYTE)).thenReturn(1.0);
-        instance=new Link(orig);
-        
-        double expected=1000.0;
-        double result=instance.getSize(SizeUnit.BYTE);
+        instance = new Link(orig);
+
+        double expected = 1000.0;
+        double result = instance.getSize(SizeUnit.BYTE);
         assertEquals(expected, result, 0.01);
-        expected=1.0;
-        result=instance.getSize(SizeUnit.KILO_BYTE);
+        expected = 1.0;
+        result = instance.getSize(SizeUnit.KILO_BYTE);
         assertEquals(expected, result, 0.01);
-        verify(orig,atLeast(2)).getSize(any());
+        verify(orig, atLeast(2)).getSize(any());
     }
 
     /**
@@ -231,13 +235,13 @@ public class LinkTest
     {
         System.out.println("getCharset");
         Link instance = null;
-        SimpleFile orig=mock(SimpleFile.class);
-        instance=new Link(orig);
+        SimpleFile orig = mock(SimpleFile.class);
+        instance = new Link(orig);
         when(orig.getCharset()).thenReturn(Charset.defaultCharset());
-        
+
         assertEquals(Charset.defaultCharset(), instance.getCharset());
-        verify(orig,atLeast(1)).getCharset();
-        
+        verify(orig, atLeast(1)).getCharset();
+
     }
 
     /**
@@ -249,19 +253,19 @@ public class LinkTest
         System.out.println("getParent");
         Link instance = null;
         Directory expResult = mock(Directory.class);
-        SimpleFile orig=mock(SimpleFile.class);
+        SimpleFile orig = mock(SimpleFile.class);
         when(orig.getParent()).thenReturn(expResult);
-        String dirName="Dir";
+        String dirName = "Dir";
         when(expResult.getName()).thenReturn(dirName);
-        
-        instance=new Link(orig);
-        
-        Directory parent=instance.getParent();
+
+        instance = new Link(orig);
+
+        Directory parent = instance.getParent();
         assertNotNull(parent);
         assertEquals(dirName, parent.getName());
-        
-        verify(orig,atLeast(1)).getParent();
-        verify(expResult,atLeast(1)).getName();
+
+        verify(orig, atLeast(1)).getParent();
+        verify(expResult, atLeast(1)).getName();
     }
 
     /**
@@ -272,23 +276,23 @@ public class LinkTest
     {
         System.out.println("toString");
         Link instance = null;
-        SimpleFile orig=mock(SimpleFile.class);
-        String name="FileName.txt";
+        SimpleFile orig = mock(SimpleFile.class);
+        String name = "FileName.txt";
         stub(orig.toString()).toReturn(name);
-        instance=new Link(orig);
-        
+        instance = new Link(orig);
+
         assertEquals(name, instance.toString());
-        
+
     }
-    
+
     @Test(expected = NullPointerException.class)
     public void testNew()
     {
         System.out.println("new");
-        Link instance=null;
-        SimpleFile orig=mock(SimpleFile.class);
-        instance=new Link(orig);
+        Link instance = null;
+        SimpleFile orig = mock(SimpleFile.class);
+        instance = new Link(orig);
         Link link = new Link(null);
     }
-    
+
 }
