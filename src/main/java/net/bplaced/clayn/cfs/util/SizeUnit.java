@@ -526,9 +526,11 @@ public enum SizeUnit
     private static final double MOD = 1000.0;
 
     /**
-     * Creates a string from the given byte value that is readable by humans. 
-     * This method only shows decimal values. E.g. {@code 1030} will be 
-     * represented as {@code 1 kb 30 b} and {@code 4015032} as {@code 4 Mb 15 kb 32b} 
+     * Creates a string from the given byte value that is readable by humans.
+     * This method only shows decimal values. E.g. {@code 1030} will be
+     * represented as {@code 1 kb 30 b} and {@code 4015032} as
+     * {@code 4 Mb 15 kb 32b}
+     *
      * @param bVal the byte value to convert
      * @return a human readable representation of the given byte value
      */

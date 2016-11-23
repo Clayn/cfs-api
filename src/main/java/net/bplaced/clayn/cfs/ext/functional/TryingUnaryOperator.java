@@ -19,8 +19,8 @@ package net.bplaced.clayn.cfs.ext.functional;
 import java.util.function.UnaryOperator;
 
 /**
- * An interface similar to {@link UnaryOperator} to allow methods that may throw an
- * exception to be referenced.
+ * An interface similar to {@link UnaryOperator} to allow methods that may throw
+ * an exception to be referenced.
  *
  * @author Clayn <clayn_osmato@gmx.de>
  * @param <T> the type of the parameter and the result of the function
@@ -54,5 +54,5 @@ public interface TryingUnaryOperator<T> extends UnaryOperator<T>
             throw new RuntimeException(ex);
         }
     }
-    
+
 }

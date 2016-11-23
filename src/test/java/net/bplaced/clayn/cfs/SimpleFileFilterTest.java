@@ -77,11 +77,11 @@ public class SimpleFileFilterTest
         SimpleFileFilter filter = SimpleFileFilter.nameFilter("Foo");
         String[] values = new String[]
         {
-            "Test.txt","TestFoo.txt","Foo.txt","Testfoo.txt","FoO.txt","Test.foo","Test.Foo"
+            "Test.txt", "TestFoo.txt", "Foo.txt", "Testfoo.txt", "FoO.txt", "Test.foo", "Test.Foo"
         };
         boolean results[] = new boolean[]
         {
-            false,true,true,false,false,false,false
+            false, true, true, false, false, false, false
         };
         SimpleFile file = mock(SimpleFile.class);
         when(file.getName()).thenReturn(null, values);

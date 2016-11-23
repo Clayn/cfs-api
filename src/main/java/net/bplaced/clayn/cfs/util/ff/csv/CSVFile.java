@@ -39,7 +39,7 @@ import net.bplaced.clayn.cfs.util.ff.FormatedFile;
  * defines which one will be used for the file.
  *
  * @author Clayn
- * @since 0.2.0 
+ * @since 0.2.0
  */
 public class CSVFile extends FormatedFile implements Closeable
 {

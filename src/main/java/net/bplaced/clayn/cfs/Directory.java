@@ -72,7 +72,7 @@ public interface Directory extends Child<Directory>, Deletable
 
     /**
      * Lists all files that pass through the given filter. Only files are
-     * returned so sub directories won't be in the list. All returned files 
+     * returned so sub directories won't be in the list. All returned files
      * exist.
      *
      * @param sff the filter to check the files
@@ -208,17 +208,20 @@ public interface Directory extends Child<Directory>, Deletable
         }
         return false;
     }
-    
+
     /**
      * Returns the absolute path of this directory in the filesystem.
+     *
      * @return the directories path in the filesystem
      * @since 0.3.0
      */
     public String getPath();
-    
+
     /**
-     * Resolves the file with the given path relativ to this directory. The returned 
-     * file may be not in this directory if the path points to a different one. 
+     * Resolves the file with the given path relativ to this directory. The
+     * returned file may be not in this directory if the path points to a
+     * different one.
+     *
      * @param path the path for the file
      * @return the file resolved from the given path
      * @throws IOException if an I/O Exception occures
@@ -226,15 +229,14 @@ public interface Directory extends Child<Directory>, Deletable
      */
     public default SimpleFile resolveFile(String path) throws IOException
     {
-        if(!path.contains("/"))
+        if (!path.contains("/"))
         {
             return getFile(path);
-        }
-        else
+        } else
         {
-            String dir=path.substring(0, path.lastIndexOf("/"));
-            String file=path.substring(path.lastIndexOf("/")+1);
-            Directory parent=changeDirectory(dir);
+            String dir = path.substring(0, path.lastIndexOf("/"));
+            String file = path.substring(path.lastIndexOf("/") + 1);
+            Directory parent = changeDirectory(dir);
             return parent.getFile(file);
         }
     }

@@ -18,6 +18,7 @@ package net.bplaced.clayn.cfs.err;
 
 /**
  * Basic exception for all runtime excpetions thrown by cfs classes.
+ *
  * @author Clayn <clayn_osmato@gmx.de>
  * @since 0.3.0
  */
@@ -48,5 +49,5 @@ public class CFSException extends RuntimeException
     {
         super(message, cause, enableSuppression, writableStackTrace);
     }
-    
+
 }

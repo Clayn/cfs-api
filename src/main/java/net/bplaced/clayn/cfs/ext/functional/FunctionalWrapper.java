@@ -38,7 +38,7 @@ public final class FunctionalWrapper
     private FunctionalWrapper() throws IllegalAccessException
     {
         throw new IllegalAccessException("No Wrapper for you!");
-    }  
+    }
 
     /**
      * Explicit converts the given trying function into a normal one. This can
