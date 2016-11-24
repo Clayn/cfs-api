@@ -199,6 +199,8 @@ public final class IOUtils
      * @since 0.2.0
      * @see #extractFromZip(net.bplaced.clayn.cfs.CFileSystem,
      * java.util.zip.ZipFile)
+     * @see #extractFromZip(net.bplaced.clayn.cfs.CFileSystem,
+     * java.util.zip.ZipFile, java.lang.String)
      */
     public static void backUpToZip(CFileSystem cfs, File backFile) throws IOException
     {
@@ -221,12 +223,30 @@ public final class IOUtils
      * @throws IOException if an I/O Exception occures
      * @since 0.2.0
      * @see #backUpToZip(net.bplaced.clayn.cfs.CFileSystem, java.io.File)
+     * @see #extractFromZip(net.bplaced.clayn.cfs.CFileSystem,
+     * java.util.zip.ZipFile, java.lang.String)
      */
     public static void extractFromZip(CFileSystem cfs, ZipFile backUp) throws IOException
     {
         extractFromZip(cfs, backUp, null);
     }
 
+    /**
+     * Extracts the content from the given backup file into the filesystem. This
+     * will overwrite files with the same path that currently exist in the
+     * filesystem. Using the {@code rootReplace} parameter you can remove the
+     * prefix of a path that matches the parameter.
+     *
+     * @param cfs the filesystem the content gets extracted to
+     * @param backUp the backup to extract
+     * @param rootReplace the pathprefix that should be removed from the files
+     * if existent
+     * @throws IOException if an I/O Exception occures
+     * @since 0.2.0
+     * @see #extractFromZip(net.bplaced.clayn.cfs.CFileSystem,
+     * java.util.zip.ZipFile)
+     * @see #backUpToZip(net.bplaced.clayn.cfs.CFileSystem, java.io.File)
+     */
     public static void extractFromZip(CFileSystem cfs, ZipFile backUp,
             String rootReplace) throws IOException
     {
