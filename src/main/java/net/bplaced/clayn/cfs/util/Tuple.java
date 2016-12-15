@@ -77,4 +77,12 @@ public final class Tuple<T, U>
     {
         return second;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Tuple{" + "first=" + first + ", second=" + second + '}';
+    }
+    
+   
 }
