@@ -31,7 +31,11 @@ import java.util.function.Predicate;
 @FunctionalInterface
 public interface SimpleFileFilter extends Predicate<SimpleFile>
 {
-
+    /**
+     * Static filefilter to return all files. Created by using {@link #all()}. 
+     * Use this to filter reduce method calls and object creation.
+     */
+    public static final SimpleFileFilter ALL=all();
     /**
      * Returns true if the file should be accepted or false otherwise.
      *

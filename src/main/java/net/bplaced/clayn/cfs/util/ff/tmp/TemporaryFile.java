@@ -42,12 +42,20 @@ public class TemporaryFile extends FormatedFile
 
     private final File tempFile;
 
+    /**
+     * Creates a new temporary file from the given {@link SimpleFile file}. 
+     * The created file represents a file in the local filesystem.
+     * @param file the file that should be created as temporary file
+     * @throws IOException if an I/O Exception occures
+     * @since 0.2.0
+     */
     public TemporaryFile(SimpleFile file) throws IOException
     {
         super(file);
         String name = file.getName();
         tempFile = Files.createTempFile(name.substring(0, name.lastIndexOf(".")),
                 name.substring(name.lastIndexOf(".") + 1)).toFile();
+        tempFile.deleteOnExit();
         try (InputStream in = file.openRead(); OutputStream out = new FileOutputStream(
                 tempFile))
         {

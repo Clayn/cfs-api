@@ -180,7 +180,8 @@ public class CSVFile extends FormatedFile implements Closeable
      * {@inheritDoc}
      *
      * @throws IOException {@inheritDoc }
-     * @since 0.2.0 * @see AutoCloseable#close()
+     * @since 0.2.0 
+     * @see AutoCloseable#close()
      */
     @Override
     public void close() throws IOException

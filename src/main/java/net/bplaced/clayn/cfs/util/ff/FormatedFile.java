@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
  * Basic class for all classes that may be formated from a {@link SimpleFile}.
  * Implementing classes can use the constructor for formating (see
  * {@link SimpleFile#as(java.util.function.Function)}). Additional this class
- * provides an {@link Logger logger} by using the {@code slf4j} framework.
+ * provides a {@link Logger logger} by using the {@code slf4j} framework.
  *
  * @author Clayn
  * @since 0.2.0
