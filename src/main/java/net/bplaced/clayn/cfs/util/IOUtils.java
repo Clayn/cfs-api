@@ -16,12 +16,16 @@
  */
 package net.bplaced.clayn.cfs.util;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
@@ -186,6 +190,49 @@ public final class IOUtils
     public static byte[] readAllBytes(SimpleFile file) throws IOException
     {
         return CFiles.readAllBytes(file);
+    }
+
+    /**
+     * Reads all lines available in the given file. Lines will be separated by
+     * the line separator (see {@link BufferedReader#readLine() readLine()}).
+     * The stream will be closed afterwards.
+     *
+     * @param file the file to read from
+     * @return all lines available in the file 
+     * @throws IOException if an I/O Exception occures
+     * @see #readAllLines(java.io.InputStream) 
+     * @since 0.3.0
+     */
+    public static List<String> readAllLines(SimpleFile file) throws IOException
+    {
+        return readAllLines(file.openRead());
+    }
+
+    /**
+     * Reads all lines available from the given inputstream. Lines will be
+     * separated by the line separator (see
+     * {@link BufferedReader#readLine() readLine()}). The stream will be closed
+     * afterwards.
+     *
+     * @param in the inputstream to read from.
+     * @return all lines read from the given inputstream
+     * @throws IOException if an I/O Exception occures
+     * @see #readAllLines(net.bplaced.clayn.cfs.SimpleFile)
+     * @since 0.3.0
+     */
+    public static List<String> readAllLines(InputStream in) throws IOException
+    {
+        List<String> lines = new ArrayList<>();
+        String line;
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(in)))
+        {
+            while ((line = reader.readLine()) != null)
+            {
+                lines.add(line);
+            }
+        }
+        return lines;
     }
 
     /**
