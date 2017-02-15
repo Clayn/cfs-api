@@ -68,6 +68,7 @@ public interface SimpleFileFilter extends Predicate<SimpleFile>
      * @see #extensionFilter(java.lang.String)
      * @see #nameFilter(java.lang.String)
      * @since 0.1
+     * @deprecated Use {@link #ALL} instead to reduce overhead.
      */
     public static SimpleFileFilter all()
     {
