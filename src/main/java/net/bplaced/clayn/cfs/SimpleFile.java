@@ -315,14 +315,14 @@ public interface SimpleFile extends Child<Directory>, Formatable<SimpleFile>, De
             public void create() throws IOException
             {
                 throw new UnsupportedOperationException(
-                        "Read only files dont support this");
+                        "Read only files don't support this operation");
             }
 
             @Override
             public void delete() throws IOException
             {
                 throw new UnsupportedOperationException(
-                        "Read only files dont support this");
+                        "Read only files don't support this operation");
             }
 
             @Override
@@ -335,7 +335,7 @@ public interface SimpleFile extends Child<Directory>, Formatable<SimpleFile>, De
             public OutputStream openWrite() throws IOException
             {
                 throw new UnsupportedOperationException(
-                        "Read only files dont support this");
+                        "Read only files don't support this operation");
             }
 
             @Override
@@ -360,7 +360,7 @@ public interface SimpleFile extends Child<Directory>, Formatable<SimpleFile>, De
             public Directory getParent()
             {
                 throw new UnsupportedOperationException(
-                        "Read only files dont support this");
+                        "Read only files don't support this operation");
             }
         };
     }

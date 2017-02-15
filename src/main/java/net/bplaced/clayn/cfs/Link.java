@@ -29,7 +29,7 @@ import net.bplaced.clayn.cfs.util.SizeUnit;
  * real file but only delegates the calls to the linked file. This means reading
  * and writing operations are made on the real file instead of the link file.
  * Due to that behaviour links are 'followed' automatic. Basically this class
- * serves as fill without the needed space or management work a real file would
+ * serves as file without the needed space or management work a real file would
  * need.
  *
  * @author Clayn <clayn_osmato@gmx.de>

@@ -19,6 +19,7 @@ package net.bplaced.clayn.cfs.util.ff;
 import net.bplaced.clayn.cfs.SimpleFile;
 import net.bplaced.clayn.cfs.ext.functional.TryingFunction;
 import net.bplaced.clayn.cfs.util.ff.csv.CSVFile;
+import net.bplaced.clayn.cfs.util.ff.prop.PropertiesFile;
 import net.bplaced.clayn.cfs.util.ff.tmp.TemporaryFile;
 
 /**
@@ -44,4 +45,6 @@ public class FileFormats
      * @since 0.2.0
      */
     public static final TryingFunction<SimpleFile, TemporaryFile> TMP = TemporaryFile::new;
+
+    public static final TryingFunction<SimpleFile, PropertiesFile> PROP = PropertiesFile::new;
 }

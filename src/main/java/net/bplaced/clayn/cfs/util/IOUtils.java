@@ -16,12 +16,16 @@
  */
 package net.bplaced.clayn.cfs.util;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
@@ -189,6 +193,49 @@ public final class IOUtils
     }
 
     /**
+     * Reads all lines available in the given file. Lines will be separated by
+     * the line separator (see {@link BufferedReader#readLine() readLine()}).
+     * The stream will be closed afterwards.
+     *
+     * @param file the file to read from
+     * @return all lines available in the file 
+     * @throws IOException if an I/O Exception occures
+     * @see #readAllLines(java.io.InputStream) 
+     * @since 0.3.0
+     */
+    public static List<String> readAllLines(SimpleFile file) throws IOException
+    {
+        return readAllLines(file.openRead());
+    }
+
+    /**
+     * Reads all lines available from the given inputstream. Lines will be
+     * separated by the line separator (see
+     * {@link BufferedReader#readLine() readLine()}). The stream will be closed
+     * afterwards.
+     *
+     * @param in the inputstream to read from.
+     * @return all lines read from the given inputstream
+     * @throws IOException if an I/O Exception occures
+     * @see #readAllLines(net.bplaced.clayn.cfs.SimpleFile)
+     * @since 0.3.0
+     */
+    public static List<String> readAllLines(InputStream in) throws IOException
+    {
+        List<String> lines = new ArrayList<>();
+        String line;
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(in)))
+        {
+            while ((line = reader.readLine()) != null)
+            {
+                lines.add(line);
+            }
+        }
+        return lines;
+    }
+
+    /**
      * Creates a Zip File backup of the given filesystems content. Each
      * directory will be added together with their files. Empty directories will
      * also be included.
@@ -199,6 +246,8 @@ public final class IOUtils
      * @since 0.2.0
      * @see #extractFromZip(net.bplaced.clayn.cfs.CFileSystem,
      * java.util.zip.ZipFile)
+     * @see #extractFromZip(net.bplaced.clayn.cfs.CFileSystem,
+     * java.util.zip.ZipFile, java.lang.String)
      */
     public static void backUpToZip(CFileSystem cfs, File backFile) throws IOException
     {
@@ -221,12 +270,30 @@ public final class IOUtils
      * @throws IOException if an I/O Exception occures
      * @since 0.2.0
      * @see #backUpToZip(net.bplaced.clayn.cfs.CFileSystem, java.io.File)
+     * @see #extractFromZip(net.bplaced.clayn.cfs.CFileSystem,
+     * java.util.zip.ZipFile, java.lang.String)
      */
     public static void extractFromZip(CFileSystem cfs, ZipFile backUp) throws IOException
     {
         extractFromZip(cfs, backUp, null);
     }
 
+    /**
+     * Extracts the content from the given backup file into the filesystem. This
+     * will overwrite files with the same path that currently exist in the
+     * filesystem. Using the {@code rootReplace} parameter you can remove the
+     * prefix of a path that matches the parameter.
+     *
+     * @param cfs the filesystem the content gets extracted to
+     * @param backUp the backup to extract
+     * @param rootReplace the pathprefix that should be removed from the files
+     * if existent
+     * @throws IOException if an I/O Exception occures
+     * @since 0.2.0
+     * @see #extractFromZip(net.bplaced.clayn.cfs.CFileSystem,
+     * java.util.zip.ZipFile)
+     * @see #backUpToZip(net.bplaced.clayn.cfs.CFileSystem, java.io.File)
+     */
     public static void extractFromZip(CFileSystem cfs, ZipFile backUp,
             String rootReplace) throws IOException
     {

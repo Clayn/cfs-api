@@ -86,6 +86,12 @@ public abstract class AbstractActiveDirectory implements ActiveDirectory
                 EMPTY_CONSUMER);
     }
 
+    /**
+     * Sends the filemodification to the consumer for that modification.
+     *
+     * @param mod the modification to dispatch
+     * @since 0.1.0
+     */
     protected void dispatchModification(FileModification mod)
     {
         switch (mod.getModification())
