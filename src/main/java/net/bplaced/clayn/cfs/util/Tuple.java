@@ -106,10 +106,9 @@ public final class Tuple<T, U>
     }
 
     /**
-     * Creates a new tuple using the values provided by the given suppliers.
-     * This is to convert other tuple or tuple like implementations into a tuple
-     * expected by the cfs.
-     *
+     * Creates a new tuple using the values provided by the given suppliers. 
+     * This is to convert other tuple or tuple like implementations into a 
+     * tuple expected by the cfs. 
      * @param <T> the type of the first value
      * @param <U> the type of the second value
      * @param firstSup the supplier that provides the first value
