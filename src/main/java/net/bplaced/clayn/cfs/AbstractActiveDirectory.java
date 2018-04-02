@@ -18,6 +18,7 @@ package net.bplaced.clayn.cfs;
 
 import java.util.Optional;
 import java.util.function.Consumer;
+import net.bplaced.clayn.cfs.ext.functional.TryingConsumer;
 
 /**
  * An abstraction for implementations of the
@@ -35,7 +36,7 @@ import java.util.function.Consumer;
 public abstract class AbstractActiveDirectory implements ActiveDirectory
 {
 
-    private static final Consumer<FileModification> EMPTY_CONSUMER = (sf)
+    private static final TryingConsumer<FileModification> EMPTY_CONSUMER = (sf)
             -> 
             {
     };
@@ -52,7 +53,7 @@ public abstract class AbstractActiveDirectory implements ActiveDirectory
      * @since 0.1
      */
     @Override
-    public void setOnCreate(Consumer<FileModification> onCreate)
+    public void setOnCreate(TryingConsumer<FileModification> onCreate)
     {
         this.onCreate = Optional.ofNullable(onCreate).orElse(EMPTY_CONSUMER);
     }
@@ -66,7 +67,7 @@ public abstract class AbstractActiveDirectory implements ActiveDirectory
      * @since 0.1
      */
     @Override
-    public void setOnDelete(Consumer<FileModification> onDelete)
+    public void setOnDelete(TryingConsumer<FileModification> onDelete)
     {
         this.onDelete = Optional.ofNullable(onDelete).orElse(EMPTY_CONSUMER);
     }
@@ -80,7 +81,7 @@ public abstract class AbstractActiveDirectory implements ActiveDirectory
      * @since 0.1
      */
     @Override
-    public void setOnModify(Consumer<FileModification> changedFile)
+    public void setOnModify(TryingConsumer<FileModification> changedFile)
     {
         this.onModification = Optional.ofNullable(changedFile).orElse(
                 EMPTY_CONSUMER);

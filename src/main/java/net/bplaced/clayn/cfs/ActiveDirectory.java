@@ -17,7 +17,7 @@
 package net.bplaced.clayn.cfs;
 
 import java.io.IOException;
-import java.util.function.Consumer;
+import net.bplaced.clayn.cfs.ext.functional.TryingConsumer;
 import net.bplaced.clayn.cfs.util.Child;
 
 /**
@@ -43,7 +43,7 @@ public interface ActiveDirectory extends Directory
      * @param newFile the action when a file was created
      * @since 0.1
      */
-    public void setOnCreate(Consumer<FileModification> newFile);
+    public void setOnCreate(TryingConsumer<FileModification> newFile);
 
     /**
      * Sets the action which will be called when the directory notices that a
@@ -53,7 +53,7 @@ public interface ActiveDirectory extends Directory
      * @param deletedFile the action when a file was deleted
      * @since 0.1
      */
-    public void setOnDelete(Consumer<FileModification> deletedFile);
+    public void setOnDelete(TryingConsumer<FileModification> deletedFile);
 
     /**
      * Sets the action which will be called when the directory notices that a
@@ -63,7 +63,7 @@ public interface ActiveDirectory extends Directory
      * @param changedFile the action when a file was modified
      * @since 0.1
      */
-    public void setOnModify(Consumer<FileModification> changedFile);
+    public void setOnModify(TryingConsumer<FileModification> changedFile);
 
     /**
      * Activates the directory. This may be an optional operation since
