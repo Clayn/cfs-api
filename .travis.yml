@@ -1,0 +1,7 @@
+branches:
+  only:
+    - 0.3
+
+mvn test -B
+
+mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
