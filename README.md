@@ -1,5 +1,7 @@
 # Clayn FileSystem
 
+[![Build Status](https://travis-ci.org/Clayn/cfs-api.svg?branch=0.3)](https://travis-ci.org/Clayn/cfs-api)
+
 This projects provides an abstraction layer for working with files and directories. In difference to other projects or the java.nio classes the CFS is not bound to your machines filesystem. 
 
 The goal is to ease the usage of files using a simple API. 
